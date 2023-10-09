@@ -6,25 +6,29 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float moveSpeed;
+    public float moveSpeed = 5;
+    public float currMoveSpeed = 0;
+    public bool canMove = false;
     public Rigidbody2D rb;
     private Vector2 moveDirection;
-    
+    private string parentName;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        parentName = transform.parent.name;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (name == "Player1")
+        if (parentName == "Player1")
         {
             InputsPlayer1();
         }
         
-        else if (name == "Player2")
+        else if (parentName == "Player2")
         {
             InputsPlayer2();
         }
@@ -33,7 +37,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         Move();
+        
     }
 
     void InputsPlayer1()
@@ -54,6 +60,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        rb.velocity = new Vector2(moveDirection.x * currMoveSpeed, moveDirection.y * currMoveSpeed);
     }
 }
