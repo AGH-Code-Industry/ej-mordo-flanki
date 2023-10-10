@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     private GameObject[] charactersPlayer2;
     private float moveSpeed;
     public float turnTime = 5f;
+    public bool stopTimer = false;
+    private PlayerMovement currPlayer1;
+    private PlayerMovement currPlayer2;
     
     // Start is called before the first frame update
     void Awake()
@@ -58,10 +61,22 @@ public class GameManager : MonoBehaviour
     {
         float counter = 0;
 
-        while (counter < turnTime)
+        while (counter < turnTime && !StopTimer())
         {
             counter += Time.deltaTime;
             yield return null;
+        }
+    }
+
+    bool StopTimer()
+    {
+        if (stopTimer)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
     
@@ -84,11 +99,14 @@ public class GameManager : MonoBehaviour
                 //---------------------------------------------------------------------- stawianie puchy player2
 
                 Vector2 startPosition = charactersPlayer2[j].transform.position;
-                moveSpeed = charactersPlayer2[j].GetComponent<PlayerMovement>().moveSpeed;
-                charactersPlayer2[j].GetComponent<PlayerMovement>().currMoveSpeed = moveSpeed;
+                currPlayer2 = charactersPlayer2[j].GetComponent<PlayerMovement>();
+                moveSpeed = currPlayer2.moveSpeed;
+                currPlayer2.rb.bodyType = RigidbodyType2D.Dynamic;
+                currPlayer2.currMoveSpeed = moveSpeed;
                 yield return StartCoroutine(TurnTimer(turnTime));
-                charactersPlayer2[j].GetComponent<PlayerMovement>().currMoveSpeed = 0;
+                currPlayer2.currMoveSpeed = 0;
                 charactersPlayer2[j].transform.position = startPosition;
+                currPlayer2.rb.bodyType = RigidbodyType2D.Kinematic;
                 
 
             }
@@ -103,11 +121,14 @@ public class GameManager : MonoBehaviour
                 //---------------------------------------------------------------------- stawianie puchy player1
 
                 Vector2 startPosition = charactersPlayer1[i].transform.position;
-                moveSpeed = charactersPlayer1[i].GetComponent<PlayerMovement>().moveSpeed;
-                charactersPlayer1[i].GetComponent<PlayerMovement>().currMoveSpeed = moveSpeed;
+                currPlayer1 = charactersPlayer1[i].GetComponent<PlayerMovement>();
+                moveSpeed = currPlayer1.moveSpeed;
+                currPlayer1.rb.bodyType = RigidbodyType2D.Dynamic;
+                currPlayer1.currMoveSpeed = moveSpeed;
                 yield return StartCoroutine(TurnTimer(turnTime));
-                charactersPlayer1[i].GetComponent<PlayerMovement>().currMoveSpeed = 0;
+                currPlayer1.currMoveSpeed = 0;
                 charactersPlayer1[i].transform.position = startPosition;
+                currPlayer1.rb.bodyType = RigidbodyType2D.Kinematic;
 
                 j++;
                 i++;
