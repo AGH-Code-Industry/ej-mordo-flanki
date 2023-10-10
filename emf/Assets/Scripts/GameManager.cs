@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private GameObject[] charactersPlayer1;
     private GameObject[] charactersPlayer2;
     private float moveSpeed;
+    public float turnTime = 5f;
     
     // Start is called before the first frame update
     void Awake()
@@ -53,6 +54,17 @@ public class GameManager : MonoBehaviour
         
     }
 
+    IEnumerator TurnTimer(float trunTime)
+    {
+        float counter = 0;
+
+        while (counter < turnTime)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+    }
+    
     IEnumerator GameLoop()
     {
         int i = 0;
@@ -61,44 +73,61 @@ public class GameManager : MonoBehaviour
         while (!isOver)
         {
 
-            if (turnCounter % 2 == 0) // player1
+            if (turnCounter % 2 == 0) // player1 - rzuca | player2 - biegnie
             {
-                Vector2 startPosition = charactersPlayer1[i].transform.position;
-                moveSpeed = charactersPlayer1[i].GetComponent<PlayerMovement>().moveSpeed;
-                charactersPlayer1[i].GetComponent<PlayerMovement>().currMoveSpeed = moveSpeed;
-                yield return new WaitForSeconds(5f);
-                charactersPlayer1[i].GetComponent<PlayerMovement>().currMoveSpeed = 0;
-                charactersPlayer1[i].transform.position = startPosition;
-                i++;
-                if (i > 4)
-                {
-                    i = 0;
-                }
+                //---------------------------------------------------------------------- rzut w puche player1
+                
+                // odpalanie mozliwosci rzutu - nie ma jej jeszcze
+                yield return StartCoroutine(TurnTimer(turnTime));
+                // wylaczanie mozliwosci rzutu
+                
+                //---------------------------------------------------------------------- stawianie puchy player2
 
-            }  
-            else //player2
-            {
                 Vector2 startPosition = charactersPlayer2[j].transform.position;
                 moveSpeed = charactersPlayer2[j].GetComponent<PlayerMovement>().moveSpeed;
                 charactersPlayer2[j].GetComponent<PlayerMovement>().currMoveSpeed = moveSpeed;
-                yield return new WaitForSeconds(5f);
+                yield return StartCoroutine(TurnTimer(turnTime));
                 charactersPlayer2[j].GetComponent<PlayerMovement>().currMoveSpeed = 0;
                 charactersPlayer2[j].transform.position = startPosition;
+                
+
+            }
+            else // player2 - rzuca | player1 - biegnie
+            {
+                //---------------------------------------------------------------------- rzut w puche player2
+
+                // odpalanie mozliwosci rzutu - nie ma jej jeszcze
+                yield return StartCoroutine(TurnTimer(turnTime));
+                // wylaczanie mozliwosci rzutu
+
+                //---------------------------------------------------------------------- stawianie puchy player1
+
+                Vector2 startPosition = charactersPlayer1[i].transform.position;
+                moveSpeed = charactersPlayer1[i].GetComponent<PlayerMovement>().moveSpeed;
+                charactersPlayer1[i].GetComponent<PlayerMovement>().currMoveSpeed = moveSpeed;
+                yield return StartCoroutine(TurnTimer(turnTime));
+                charactersPlayer1[i].GetComponent<PlayerMovement>().currMoveSpeed = 0;
+                charactersPlayer1[i].transform.position = startPosition;
+
                 j++;
-                if (j > 4)
+                i++;
+                if (j > 3 && i > 3)
                 {
                     j = 0;
+                    i = 0;
                 }
+                
 
             }
 
 
             turnCounter++;
-            if (turnCounter == 8) // zeby petla sie konczyla
+            if (turnCounter == 10) // zeby petla sie konczyla
             {
                 isOver = true;
             }
         }
     }
+    
 
 }
