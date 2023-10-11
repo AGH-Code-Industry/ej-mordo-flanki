@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -12,11 +13,12 @@ public class GameManager : MonoBehaviour
     private GameObject[] charactersPlayer1;
     private GameObject[] charactersPlayer2;
     private float moveSpeed;
-    public float turnTime = 5f;
+    public float turnTime = 10f;
     public bool stopTimer = false;
-    private PlayerMovement currPlayer1;
-    private PlayerMovement currPlayer2;
-    
+    private PlayerMovement currPlayer1PM;
+    private PlayerMovement currPlayer2PM;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -80,6 +82,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    
     IEnumerator GameLoop()
     {
         int i = 0;
@@ -91,44 +94,63 @@ public class GameManager : MonoBehaviour
             if (turnCounter % 2 == 0) // player1 - rzuca | player2 - biegnie
             {
                 //---------------------------------------------------------------------- rzut w puche player1
-                
-                // odpalanie mozliwosci rzutu - nie ma jej jeszcze
+            
+                charactersPlayer1[i].transform.GetChild(1).gameObject.SetActive(true);
                 yield return StartCoroutine(TurnTimer(turnTime));
-                // wylaczanie mozliwosci rzutu
+                charactersPlayer1[i].transform.GetChild(1).gameObject.GetComponent<ArrowController>().isStopped = false;
+                charactersPlayer1[i].transform.GetChild(1).gameObject.SetActive(false);
                 
-                //---------------------------------------------------------------------- stawianie puchy player2
+                //---------------------------------------------------------------------- stawianie puchy player2 jezeli player1 trafił
 
-                Vector2 startPosition = charactersPlayer2[j].transform.position;
-                currPlayer2 = charactersPlayer2[j].GetComponent<PlayerMovement>();
-                moveSpeed = currPlayer2.moveSpeed;
-                currPlayer2.rb.bodyType = RigidbodyType2D.Dynamic;
-                currPlayer2.currMoveSpeed = moveSpeed;
-                yield return StartCoroutine(TurnTimer(turnTime));
-                currPlayer2.currMoveSpeed = 0;
-                charactersPlayer2[j].transform.position = startPosition;
-                currPlayer2.rb.bodyType = RigidbodyType2D.Kinematic;
-                
+                if (charactersPlayer1[i].transform.GetChild(0).gameObject.GetComponent<ThrowCan>().hitTargetCan == true)
+                {
+
+                    Vector2 startPosition = charactersPlayer2[j].transform.position;
+                    currPlayer2PM = charactersPlayer2[j].GetComponent<PlayerMovement>();
+                    moveSpeed = currPlayer2PM.moveSpeed;
+                    currPlayer2PM.rb.bodyType = RigidbodyType2D.Dynamic;
+                    currPlayer2PM.currMoveSpeed = moveSpeed;
+                    yield return StartCoroutine(TurnTimer(turnTime));
+                    currPlayer2PM.currMoveSpeed = 0;
+                    charactersPlayer2[j].transform.position = startPosition;
+                    currPlayer2PM.rb.bodyType = RigidbodyType2D.Kinematic;
+                    charactersPlayer1[i].transform.GetChild(0).gameObject.GetComponent<ThrowCan>().hitTargetCan = false;
+
+                }
+                else
+                {
+                    charactersPlayer1[i].transform.GetChild(0).gameObject.GetComponent<ThrowCan>().hitSomethingElse = false;
+                }
 
             }
             else // player2 - rzuca | player1 - biegnie
             {
                 //---------------------------------------------------------------------- rzut w puche player2
 
-                // odpalanie mozliwosci rzutu - nie ma jej jeszcze
+                charactersPlayer2[j].transform.GetChild(1).gameObject.SetActive(true);
                 yield return StartCoroutine(TurnTimer(turnTime));
-                // wylaczanie mozliwosci rzutu
+                charactersPlayer2[j].transform.GetChild(1).gameObject.GetComponent<ArrowController>().isStopped = false;
+                charactersPlayer2[j].transform.GetChild(1).gameObject.SetActive(false);
+                
+                //---------------------------------------------------------------------- stawianie puchy player1 jezeli player2 trafil
 
-                //---------------------------------------------------------------------- stawianie puchy player1
+                if (charactersPlayer2[j].transform.GetChild(0).gameObject.GetComponent<ThrowCan>().hitTargetCan == true)
+                {
 
-                Vector2 startPosition = charactersPlayer1[i].transform.position;
-                currPlayer1 = charactersPlayer1[i].GetComponent<PlayerMovement>();
-                moveSpeed = currPlayer1.moveSpeed;
-                currPlayer1.rb.bodyType = RigidbodyType2D.Dynamic;
-                currPlayer1.currMoveSpeed = moveSpeed;
-                yield return StartCoroutine(TurnTimer(turnTime));
-                currPlayer1.currMoveSpeed = 0;
-                charactersPlayer1[i].transform.position = startPosition;
-                currPlayer1.rb.bodyType = RigidbodyType2D.Kinematic;
+                    Vector2 startPosition = charactersPlayer1[i].transform.position;
+                    currPlayer1PM = charactersPlayer1[i].GetComponent<PlayerMovement>();
+                    moveSpeed = currPlayer1PM.moveSpeed;
+                    currPlayer1PM.rb.bodyType = RigidbodyType2D.Dynamic;
+                    currPlayer1PM.currMoveSpeed = moveSpeed;
+                    yield return StartCoroutine(TurnTimer(turnTime));
+                    currPlayer1PM.currMoveSpeed = 0;
+                    charactersPlayer1[i].transform.position = startPosition;
+                    currPlayer1PM.rb.bodyType = RigidbodyType2D.Kinematic;
+                }
+                else
+                {
+                    charactersPlayer1[i].transform.GetChild(0).gameObject.GetComponent<ThrowCan>().hitSomethingElse = false;
+                }
 
                 j++;
                 i++;
