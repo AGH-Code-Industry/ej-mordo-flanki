@@ -5,19 +5,29 @@ using UnityEngine;
 
 public class ArrowController : MonoBehaviour
 {
-    public float throwForce = 10f;
     public float rotationSpeed = 180f; 
-    public float rotationAngle = 45f; 
+    private float rotationAngle = 90f;
     public Vector3 rotationAxis = Vector3.forward;
+    private int rotationDirection = 1;
+    private float currRotation;
+    private float startRotation;
+
     public bool isStopped = false;
-    public GameObject throwCan;
-    private bool rotateClockwise = true;
     public GameObject arrowTip;
+    
+    public float throwForce = 10f;
+    public GameObject throwCan;
 
     void OnEnable()
     {
         throwCan.transform.position = arrowTip.transform.position;
         throwCan.SetActive(true);
+
+    }
+
+    void OnDisable()
+    {
+        isStopped = false;
     }
 
     void Awake()
@@ -26,6 +36,12 @@ public class ArrowController : MonoBehaviour
         {
             transform.localPosition = -transform.localPosition;
             transform.rotation = Quaternion.Euler(0, 0f, 180f);
+            startRotation = 180f;
+
+        }
+        else
+        {
+            startRotation = 0f;
         }
 
     }
@@ -34,11 +50,24 @@ public class ArrowController : MonoBehaviour
     {
         if (!isStopped)
         {
-            transform.RotateAround(arrowTip.transform.position, Vector3.forward, rotationSpeed * Time.deltaTime);
+            transform.RotateAround(arrowTip.transform.position, rotationAxis, rotationSpeed * rotationDirection * Time.deltaTime);
+
+            currRotation = transform.localRotation.eulerAngles.z;
+            
+            if (currRotation > 180f)
+            {
+                currRotation -= 360f;
+            }
+            
+            if (Mathf.Abs(currRotation) >= startRotation + (rotationAngle/2) || Mathf.Abs(currRotation) <= startRotation - (rotationAngle/2))
+            {
+                rotationDirection *= -1;
+            }
+            
         }
         
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !isStopped)
         {
             isStopped = true;
             Throw(transform.right);

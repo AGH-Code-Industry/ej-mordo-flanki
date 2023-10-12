@@ -97,7 +97,6 @@ public class GameManager : MonoBehaviour
             
                 charactersPlayer1[i].transform.GetChild(1).gameObject.SetActive(true);
                 yield return StartCoroutine(TurnTimer(turnTime));
-                charactersPlayer1[i].transform.GetChild(1).gameObject.GetComponent<ArrowController>().isStopped = false;
                 charactersPlayer1[i].transform.GetChild(1).gameObject.SetActive(false);
                 
                 //---------------------------------------------------------------------- stawianie puchy player2 jezeli player1 trafił
