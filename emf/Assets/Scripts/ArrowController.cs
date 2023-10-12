@@ -18,6 +18,9 @@ public class ArrowController : MonoBehaviour
     public float throwForce = 10f;
     public GameObject throwCan;
 
+    private bool isPlayer1 = false;
+    private bool isPlayer2 = false;
+
     void OnEnable()
     {
         throwCan.transform.position = arrowTip.transform.position;
@@ -37,11 +40,13 @@ public class ArrowController : MonoBehaviour
             transform.localPosition = -transform.localPosition;
             transform.rotation = Quaternion.Euler(0, 0f, 180f);
             startRotation = 180f;
+            isPlayer2 = true;
 
         }
         else
         {
             startRotation = 0f;
+            isPlayer1 = true;
         }
 
     }
@@ -65,12 +70,23 @@ public class ArrowController : MonoBehaviour
             }
             
         }
-        
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isStopped)
+        if (isPlayer1)
         {
-            isStopped = true;
-            Throw(transform.right);
+            if (Input.GetKeyDown(KeyCode.Space) && !isStopped)
+            {
+                isStopped = true;
+                Throw(transform.right);
+            }
+        }
+        
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.RightControl) && !isStopped)
+            {
+                isStopped = true;
+                Throw(transform.right);
+            }
         }
     }
 

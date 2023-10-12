@@ -182,10 +182,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6520649527074cf59533081845f823f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwForce: 10
   rotationSpeed: 180
-  rotationAngle: 45
   rotationAxis: {x: 0, y: 0, z: 1}
   isStopped: 0
-  throwCan: {fileID: 0}
   arrowTip: {fileID: 1861770960272126650}
+  throwForce: 10
+  throwCan: {fileID: 0}
