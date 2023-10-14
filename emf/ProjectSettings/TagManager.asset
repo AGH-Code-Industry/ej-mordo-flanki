@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ThrowCan
+  - TargetCan
+  - Character
+  - TargetCanPlace
   layers:
   - Default
   - TransparentFX
