@@ -9,10 +9,12 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5;
     public float currMoveSpeed = 0;
     public bool canMove = false;
+    public float drinkSpeed = 1;
+
+    public BeerManager BeerManagerSC;
+    
     public Rigidbody2D rb;
     private Vector2 moveDirection;
-    private string parentName;
-    
 
     public Vector3 startPosition;
 
@@ -29,7 +31,19 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        parentName = transform.parent.name;
+        if (transform.parent.name == "Player1")
+        {
+            isPlayer1 = true;
+            BeerManagerSC = GameObject.Find("BeerManager1").GetComponent<BeerManager>();
+            BeerManagerSC.beerSpeed += drinkSpeed;
+        }
+        else
+        {
+            isPlayer2 = true;
+            BeerManagerSC = GameObject.Find("BeerManager2").GetComponent<BeerManager>();
+            BeerManagerSC.beerSpeed += drinkSpeed;
+            
+        }
         
         targetCan = GameObject.Find("TargetCan");
         targetCanPlace = GameObject.Find("TargetCanPlace");
@@ -38,19 +52,21 @@ public class PlayerMovement : MonoBehaviour
         TCPColor = TCPRenderer.material.color;
 
         startPosition = transform.position;
+        
+        
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (parentName == "Player1")
+        if (isPlayer1)
         {
             InputsPlayer1();
             isPlayer1 = true;
         }
         
-        else if (parentName == "Player2")
+        else if (isPlayer2)
         {
             InputsPlayer2();
             isPlayer2 = true;
@@ -82,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
                 Place();
             }
         }
+        
     }
 
     private void FixedUpdate()

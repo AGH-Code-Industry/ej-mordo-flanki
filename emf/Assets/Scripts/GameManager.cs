@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class GameManager : MonoBehaviour
 
     private PlayerMovement currPlayer1SC;
     private PlayerMovement currPlayer2SC;
+
+    private BeerManager BeerManager1SC;
+    private BeerManager BeerManager2SC;
 
 
     // Start is called before the first frame update
@@ -60,7 +64,10 @@ public class GameManager : MonoBehaviour
         TargetCanRB = GameObject.Find("TargetCan").GetComponent<Rigidbody2D>();
 
         PlayerHomeSC = PlayerHome.GetComponent<PlayerHome>();
-        
+
+        BeerManager1SC = GameObject.Find("BeerManager1").GetComponent<BeerManager>();
+        BeerManager2SC = GameObject.Find("BeerManager2").GetComponent<BeerManager>();
+
 
     }
 
@@ -90,6 +97,18 @@ public class GameManager : MonoBehaviour
             holdTimer = true;
             hittedSomethingElse = false;
         }
+
+        if (BeerManager1SC.isEmpty)
+        {
+            StopAllCoroutines();
+            SceneManager.LoadScene("Menu");
+        }
+        if (BeerManager2SC.isEmpty)
+        {
+            StopAllCoroutines();
+            SceneManager.LoadScene("Menu");
+        }
+        
     }
 
     
@@ -133,7 +152,6 @@ public class GameManager : MonoBehaviour
             else
             {
                 stopTimer = false;
-                yield return new WaitForSeconds(1f);
                 yield break;
             }
         }
@@ -160,6 +178,8 @@ public class GameManager : MonoBehaviour
 
                 if (charactersPlayer1[i].transform.GetChild(0).GetComponent<ThrowCan>().hitTargetCan)
                 {
+                    BeerManager1SC.canDrink = true;
+                    
                     TargetCanSC.hitted = false;
                     
                     TargetCanRB.bodyType = RigidbodyType2D.Kinematic;
@@ -172,6 +192,9 @@ public class GameManager : MonoBehaviour
                     currPlayer2SC.canMove = true;
                     
                     yield return StartCoroutine(RunTurnTimer(turnTime));
+
+                    BeerManager1SC.canDrink = false;
+                    
                     
                     currPlayer2SC.currMoveSpeed = 0;
                     charactersPlayer2[j].transform.position = currPlayer2SC.startPosition;
@@ -202,6 +225,8 @@ public class GameManager : MonoBehaviour
 
                 if (charactersPlayer2[j].transform.GetChild(0).GetComponent<ThrowCan>().hitTargetCan)
                 {
+                    BeerManager2SC.canDrink = true;
+                    
                     TargetCanSC.hitted = false;
                     
                     TargetCanRB.bodyType = RigidbodyType2D.Kinematic;
@@ -214,6 +239,9 @@ public class GameManager : MonoBehaviour
                     currPlayer1SC.canMove = true;
                     
                     yield return StartCoroutine(RunTurnTimer(turnTime));
+
+                    BeerManager2SC.canDrink = false;
+                    
                     
                     currPlayer1SC.currMoveSpeed = 0;
                     charactersPlayer1[i].transform.position = currPlayer1SC.startPosition;
