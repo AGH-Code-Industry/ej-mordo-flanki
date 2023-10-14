@@ -8,6 +8,7 @@ public class TargetCan : MonoBehaviour
 
     public bool pickUpAllowed = false;
     private TargetCanPlace targetCanPlace;
+    public bool hitted = false;
 
     void Awake()
     {
@@ -32,6 +33,14 @@ public class TargetCan : MonoBehaviour
         if (col.gameObject.tag == "Character")
         {
             pickUpAllowed = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "ThrowCan")
+        {
+            hitted = true;
         }
     }
 }

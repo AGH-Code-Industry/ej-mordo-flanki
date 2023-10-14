@@ -9,24 +9,29 @@ public class ThrowCan : MonoBehaviour
 
     public bool hitTargetCan = false;
     public bool hitSomethingElse = false;
+    
+
+    public GameManager GameManager;
+
+    void Awake()
+    {
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
 
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "TargetCan")
         {
             hitTargetCan = true;
-            Invoke("DestroyObject", 1f);
+            gameObject.SetActive(false);
         }
         else
         {
+            GameManager.hittedSomethingElse = true;
             hitSomethingElse = true;
-            Invoke("DestroyObject", 1f);
+            gameObject.SetActive(false);
+            
         }
-    }
-
-    void DestroyObject()
-    {
-        gameObject.SetActive(false);
     }
     
 }

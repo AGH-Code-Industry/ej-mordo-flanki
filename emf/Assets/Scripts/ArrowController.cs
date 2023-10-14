@@ -82,7 +82,7 @@ public class ArrowController : MonoBehaviour
         
         else
         {
-            if (Input.GetKeyDown(KeyCode.RightControl) && !isStopped)
+            if (Input.GetKeyDown(KeyCode.Slash) && !isStopped)
             {
                 isStopped = true;
                 Throw(transform.right);

@@ -12,9 +12,16 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     private Vector2 moveDirection;
     private string parentName;
+    
+
+    public Vector3 startPosition;
 
     private GameObject targetCan;
     private GameObject targetCanPlace;
+    private SpriteRenderer TCPRenderer;
+    private Color TCPColor;
+
+    public GameObject PlayerHome;
 
     private bool isPlayer1 = false;
     private bool isPlayer2 = false;
@@ -23,8 +30,14 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         parentName = transform.parent.name;
+        
         targetCan = GameObject.Find("TargetCan");
         targetCanPlace = GameObject.Find("TargetCanPlace");
+        
+        TCPRenderer = targetCanPlace.GetComponent<SpriteRenderer>();
+        TCPColor = TCPRenderer.material.color;
+
+        startPosition = transform.position;
 
     }
 
@@ -46,31 +59,27 @@ public class PlayerMovement : MonoBehaviour
         if (isPlayer1)
         {
 
-            if (targetCan.GetComponent<TargetCan>().pickUpAllowed && Input.GetKeyDown(KeyCode.Space))
+            if (targetCan.GetComponent<TargetCan>().pickUpAllowed && Input.GetKeyDown(KeyCode.Space) && canMove)
             {
-                targetCan.SetActive(false);
-                targetCan.GetComponent<TargetCan>().pickUpAllowed = false;
+                Pickup();
             }
 
-            if (targetCanPlace.GetComponent<TargetCanPlace>().canPlace && Input.GetKeyDown(KeyCode.Space))
+            if (targetCanPlace.GetComponent<TargetCanPlace>().canPlace && Input.GetKeyDown(KeyCode.Space) && canMove)
             {
-                targetCan.SetActive(true);
-                targetCan.transform.position = targetCanPlace.GetComponent<TargetCanPlace>().placePosition;
+                Place();
             }
         }
         
         else
         {
-            if (targetCan.GetComponent<TargetCan>().pickUpAllowed && Input.GetKeyDown(KeyCode.RightControl))
+            if (targetCan.GetComponent<TargetCan>().pickUpAllowed && Input.GetKeyDown(KeyCode.Slash) && canMove)
             {
-                targetCan.SetActive(false);
-                targetCan.GetComponent<TargetCan>().pickUpAllowed = false;
+                Pickup();
             }
 
-            if (targetCanPlace.GetComponent<TargetCanPlace>().canPlace && Input.GetKeyDown(KeyCode.RightControl))
+            if (targetCanPlace.GetComponent<TargetCanPlace>().canPlace && Input.GetKeyDown(KeyCode.Slash) && canMove)
             {
-                targetCan.SetActive(true);
-                targetCan.transform.position = targetCanPlace.GetComponent<TargetCanPlace>().placePosition;
+                Place();
             }
         }
     }
@@ -82,6 +91,25 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+    void Pickup()
+    {
+        targetCan.SetActive(false);
+        TCPColor.a = 0.2f;
+        TCPRenderer.color = TCPColor;
+        targetCan.GetComponent<TargetCan>().pickUpAllowed = false;
+    }
+
+    void Place()
+    {
+        targetCan.SetActive(true);
+        TCPColor.a = 0f;
+        TCPRenderer.color = TCPColor;
+        targetCan.transform.position = targetCanPlace.GetComponent<TargetCanPlace>().placePosition;
+        PlayerHome.SetActive(true);
+        PlayerHome.transform.position = startPosition;
+
+    }
+    
     void InputsPlayer1()
     {
         float moveX = Input.GetAxisRaw("Horizontal1");

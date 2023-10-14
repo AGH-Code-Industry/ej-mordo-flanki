@@ -132,6 +132,8 @@ MonoBehaviour:
   currMoveSpeed: 0
   canMove: 0
   rb: {fileID: 1768136151863419009}
+  startPositin: {x: 0, y: 0, z: 0}
+  PlayerHome: {fileID: 0}
 --- !u!61 &8089634875513311983
 BoxCollider2D:
   m_ObjectHideFlags: 0
