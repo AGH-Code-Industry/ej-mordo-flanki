@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5;
     public float currMoveSpeed = 0;
     public bool canMove = false;
-    public float drinkSpeed = 1;
+    public float drinkSpeed = 0.2f;
 
     public BeerManager BeerManagerSC;
     
@@ -42,7 +42,8 @@ public class PlayerMovement : MonoBehaviour
             isPlayer2 = true;
             BeerManagerSC = GameObject.Find("BeerManager2").GetComponent<BeerManager>();
             BeerManagerSC.beerSpeed += drinkSpeed;
-            
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+
         }
         
         targetCan = GameObject.Find("TargetCan");
@@ -122,6 +123,7 @@ public class PlayerMovement : MonoBehaviour
         TCPColor.a = 0f;
         TCPRenderer.color = TCPColor;
         targetCan.transform.position = targetCanPlace.GetComponent<TargetCanPlace>().placePosition;
+        targetCan.transform.rotation = Quaternion.Euler(0f,0f,0f);
         PlayerHome.SetActive(true);
         PlayerHome.transform.position = startPosition;
 

@@ -31,6 +31,7 @@ public class ArrowController : MonoBehaviour
     void OnDisable()
     {
         isStopped = false;
+        throwCan.SetActive(false);
     }
 
     void Awake()

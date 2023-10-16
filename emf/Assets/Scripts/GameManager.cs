@@ -43,20 +43,24 @@ public class GameManager : MonoBehaviour
 
 
         int i = 0;
+        float posY = -2f;
         foreach (Transform child in Player1.transform)
         {
             charactersPlayer1[i] = child.gameObject;
-            charactersPlayer1[i].transform.position = new Vector3(-6, i, 0);
+            charactersPlayer1[i].transform.position = new Vector3(-6, posY, 0);
             i++;
+            posY += 1.5f;
 
         }
 
         i = 0;
+        posY = -2f;
         foreach (Transform child in Player2.transform)
         {
             charactersPlayer2[i] = child.gameObject;
-            charactersPlayer2[i].transform.position = new Vector3(4, i, 0);
+            charactersPlayer2[i].transform.position = new Vector3(6, posY, 0);
             i++;
+            posY += 1.5f;
 
         }
 
@@ -100,11 +104,13 @@ public class GameManager : MonoBehaviour
 
         if (BeerManager1SC.isEmpty)
         {
+            isOver = true;
             StopAllCoroutines();
             SceneManager.LoadScene("Menu");
         }
         if (BeerManager2SC.isEmpty)
         {
+            isOver = true;
             StopAllCoroutines();
             SceneManager.LoadScene("Menu");
         }
@@ -269,12 +275,8 @@ public class GameManager : MonoBehaviour
 
             }
 
-
             turnCounter++;
-            if (turnCounter == 10) // zeby petla sie konczyla
-            {
-                isOver = true;
-            }
+
         }
     }
     

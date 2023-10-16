@@ -144,6 +144,10 @@ PrefabInstance:
       propertyPath: beerBar
       value: 
       objectReference: {fileID: 201879053}
+    - target: {fileID: 6379506843324123482, guid: 2bb4cf0af566e4f0090bdd054bb284b5, type: 3}
+      propertyPath: beerAmount
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6915407206771086573, guid: 2bb4cf0af566e4f0090bdd054bb284b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 413
@@ -198,16 +202,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 146060991159240535, guid: b72d4d90023c14548992ef9aefe1e122, type: 3}
+      propertyPath: m_Mass
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 146060991159240535, guid: b72d4d90023c14548992ef9aefe1e122, type: 3}
       propertyPath: m_BodyType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 146060991159240535, guid: b72d4d90023c14548992ef9aefe1e122, type: 3}
+      propertyPath: m_LinearDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 146060991159240535, guid: b72d4d90023c14548992ef9aefe1e122, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 2031478189398113660, guid: b72d4d90023c14548992ef9aefe1e122, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.240479
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2031478189398113660, guid: b72d4d90023c14548992ef9aefe1e122, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4057512
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2031478189398113660, guid: b72d4d90023c14548992ef9aefe1e122, type: 3}
       propertyPath: m_LocalPosition.z
@@ -254,9 +270,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6502349896646421777, guid: b72d4d90023c14548992ef9aefe1e122, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 834679080}
-    - targetCorrespondingSourceObject: {fileID: 6502349896646421777, guid: b72d4d90023c14548992ef9aefe1e122, type: 3}
       insertIndex: -1
       addedObject: {fileID: 834679079}
   m_SourcePrefab: {fileID: 100100000, guid: b72d4d90023c14548992ef9aefe1e122, type: 3}
@@ -272,9 +285,13 @@ PrefabInstance:
       propertyPath: PlayerHome
       value: 
       objectReference: {fileID: 1299685543}
+    - target: {fileID: 3745538615366375627, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
+      propertyPath: drinkSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5808833468743170620, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.31
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 5808833468743170620, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
       propertyPath: m_LocalPosition.y
@@ -344,13 +361,17 @@ PrefabInstance:
       propertyPath: PlayerHome
       value: 
       objectReference: {fileID: 1299685543}
+    - target: {fileID: 3745538615366375627, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
+      propertyPath: drinkSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5808833468743170620, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.31
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 5808833468743170620, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.943487
+      value: -1.15
       objectReference: {fileID: 0}
     - target: {fileID: 5808833468743170620, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
       propertyPath: m_LocalPosition.z
@@ -405,9 +426,13 @@ PrefabInstance:
       propertyPath: PlayerHome
       value: 
       objectReference: {fileID: 1299685543}
+    - target: {fileID: 3745538615366375627, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
+      propertyPath: drinkSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5808833468743170620, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.31
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 5808833468743170620, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
       propertyPath: m_LocalPosition.y
@@ -470,9 +495,13 @@ PrefabInstance:
       propertyPath: PlayerHome
       value: 
       objectReference: {fileID: 1299685543}
+    - target: {fileID: 5582586398386618930, guid: 84c1c72aa78404d0d85eb8bc5b5fa0d1, type: 3}
+      propertyPath: drinkSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6376878731960291888, guid: 84c1c72aa78404d0d85eb8bc5b5fa0d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.37
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6376878731960291888, guid: 84c1c72aa78404d0d85eb8bc5b5fa0d1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -659,41 +688,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickUpAllowed: 0
   hitted: 0
---- !u!58 &834679080
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 834679074}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.8
 --- !u!50 &834679081 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 146060991159240535, guid: b72d4d90023c14548992ef9aefe1e122, type: 3}
@@ -711,9 +705,13 @@ PrefabInstance:
       propertyPath: PlayerHome
       value: 
       objectReference: {fileID: 1299685543}
+    - target: {fileID: 3745538615366375627, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
+      propertyPath: drinkSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5808833468743170620, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.31
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 5808833468743170620, guid: 371e154ef32f444d09316924fe3cbb27, type: 3}
       propertyPath: m_LocalPosition.y
@@ -854,9 +852,9 @@ Transform:
   m_GameObject: {fileID: 1169937456}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0469, y: 0.0063, z: 0}
-  m_LocalScale: {x: 1.872853, y: 1.872853, z: 1.872853}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 1.83, y: -1.13, z: 0}
+  m_LocalScale: {x: 2.3, y: 2.3, z: 2.3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1366545724}
   m_Father: {fileID: 0}
@@ -882,9 +880,13 @@ PrefabInstance:
       propertyPath: PlayerHome
       value: 
       objectReference: {fileID: 1299685543}
+    - target: {fileID: 5582586398386618930, guid: 84c1c72aa78404d0d85eb8bc5b5fa0d1, type: 3}
+      propertyPath: drinkSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6376878731960291888, guid: 84c1c72aa78404d0d85eb8bc5b5fa0d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.37
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6376878731960291888, guid: 84c1c72aa78404d0d85eb8bc5b5fa0d1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -999,7 +1001,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 4.76, y: 0}
+  m_Offset: {x: 3.08, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1044,7 +1046,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -4.76, y: 0}
+  m_Offset: {x: -4.66, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1089,7 +1091,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -2.67}
+  m_Offset: {x: 0, y: -1.68}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1332,6 +1334,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4113515658576728948, guid: 2c03637bdd67248e4b4e746c7afefb47, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8820463177868698187, guid: 2c03637bdd67248e4b4e746c7afefb47, type: 3}
       propertyPath: m_Name
       value: Player1Bar
@@ -1497,7 +1503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 501852387233561202, guid: 321141497ac0f46529cace0f68a783ff, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -5.65
       objectReference: {fileID: 0}
     - target: {fileID: 501852387233561202, guid: 321141497ac0f46529cace0f68a783ff, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1535,6 +1541,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHome
       objectReference: {fileID: 0}
+    - target: {fileID: 2693026520045104445, guid: 321141497ac0f46529cace0f68a783ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1556,9 +1566,13 @@ PrefabInstance:
       propertyPath: PlayerHome
       value: 
       objectReference: {fileID: 1299685543}
+    - target: {fileID: 5582586398386618930, guid: 84c1c72aa78404d0d85eb8bc5b5fa0d1, type: 3}
+      propertyPath: drinkSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6376878731960291888, guid: 84c1c72aa78404d0d85eb8bc5b5fa0d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.37
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6376878731960291888, guid: 84c1c72aa78404d0d85eb8bc5b5fa0d1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1617,9 +1631,13 @@ PrefabInstance:
       propertyPath: PlayerHome
       value: 
       objectReference: {fileID: 1299685543}
+    - target: {fileID: 5582586398386618930, guid: 84c1c72aa78404d0d85eb8bc5b5fa0d1, type: 3}
+      propertyPath: drinkSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6376878731960291888, guid: 84c1c72aa78404d0d85eb8bc5b5fa0d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.37
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6376878731960291888, guid: 84c1c72aa78404d0d85eb8bc5b5fa0d1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1737,11 +1755,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3177644460279133215, guid: ce5359e4ec1d84a889ece81a302781e7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3177644460279133215, guid: ce5359e4ec1d84a889ece81a302781e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.39
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3177644460279133215, guid: ce5359e4ec1d84a889ece81a302781e7, type: 3}
       propertyPath: m_LocalPosition.z
