@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float currMoveSpeed = 0;
     public bool canMove = false;
     public float drinkSpeed = 0.2f;
+    public float throwForce = 10f;
 
     public BeerManager BeerManagerSC;
     
@@ -64,13 +66,11 @@ public class PlayerMovement : MonoBehaviour
         if (isPlayer1)
         {
             InputsPlayer1();
-            isPlayer1 = true;
         }
         
         else if (isPlayer2)
         {
             InputsPlayer2();
-            isPlayer2 = true;
         }
 
         if (isPlayer1)
@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
                 Place();
             }
         }
-        
+
     }
 
     private void FixedUpdate()

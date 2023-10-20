@@ -15,7 +15,7 @@ public class ArrowController : MonoBehaviour
     public bool isStopped = false;
     public GameObject arrowTip;
     
-    public float throwForce = 10f;
+    private float throwForce;
     public GameObject throwCan;
 
     private bool isPlayer1 = false;
@@ -49,6 +49,8 @@ public class ArrowController : MonoBehaviour
             startRotation = 0f;
             isPlayer1 = true;
         }
+
+        throwForce = transform.parent.gameObject.GetComponent<PlayerMovement>().throwForce;
 
     }
 

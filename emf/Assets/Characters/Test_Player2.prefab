@@ -132,6 +132,7 @@ MonoBehaviour:
   currMoveSpeed: 0
   canMove: 0
   drinkSpeed: 1
+  throwForce: 10
   BeerManagerSC: {fileID: 0}
   rb: {fileID: 7843484555875583260}
   startPosition: {x: 0, y: 0, z: 0}
@@ -285,15 +286,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7371404994498434433, guid: ed5a22821986745338b46ca04957eda3, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7371404994498434433, guid: ed5a22821986745338b46ca04957eda3, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7371404994498434433, guid: ed5a22821986745338b46ca04957eda3, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7371404994498434433, guid: ed5a22821986745338b46ca04957eda3, type: 3}
       propertyPath: m_LocalPosition.x

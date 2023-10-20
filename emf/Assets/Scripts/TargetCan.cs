@@ -9,10 +9,20 @@ public class TargetCan : MonoBehaviour
     public bool pickUpAllowed = false;
     private TargetCanPlace targetCanPlace;
     public bool hitted = false;
+    public Rigidbody2D rb;
+    public float slow = 0.5f; 
 
     void Awake()
     {
         targetCanPlace = GameObject.Find("TargetCanPlace").GetComponent<TargetCanPlace>();   
+    }
+
+    void FixedUpdate()
+    {
+        if (rb.velocity.magnitude > 0)
+        {
+            SlowDown();
+        }
     }
 
     private void OnEnable()
@@ -42,5 +52,15 @@ public class TargetCan : MonoBehaviour
         {
             hitted = true;
         }
+    }
+
+    void SlowDown()
+    {
+        float slowDownFactor = Mathf.Log(1 + rb.velocity.magnitude * slow);
+        rb.velocity *= Mathf.Pow(1f - slowDownFactor, Time.deltaTime);
+        
+        float rotationSpeed = rb.angularVelocity;
+        rotationSpeed *= Mathf.Pow(1f - slow, Time.deltaTime);
+        rb.angularVelocity = rotationSpeed;
     }
 }

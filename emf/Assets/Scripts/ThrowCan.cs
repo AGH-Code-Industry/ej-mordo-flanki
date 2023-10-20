@@ -9,7 +9,7 @@ public class ThrowCan : MonoBehaviour
 
     public bool hitTargetCan = false;
     public bool hitSomethingElse = false;
-    
+
 
     public GameManager GameManager;
 
