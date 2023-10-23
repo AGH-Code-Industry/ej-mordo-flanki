@@ -8,6 +8,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
+    [Header("Characters")] 
+    public List<GameObject> characters = new List<GameObject>();
+
+    public SelectedCharacters SelectedCharactersSC;
+    
     private bool isOver = false;
     private GameObject Player1;
     private GameObject Player2;
@@ -19,9 +24,6 @@ public class GameManager : MonoBehaviour
     public bool stopTimer = false;
     public bool holdTimer = false;
 
-    public GameObject PlayerHome;
-    private PlayerHome PlayerHomeSC;
-    
     private Rigidbody2D TargetCanRB;
     private TargetCan TargetCanSC;
     public bool hittedSomethingElse = false;
@@ -36,38 +38,46 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+
         Player1 = GameObject.Find("Player1");
         Player2 = GameObject.Find("Player2");
         charactersPlayer1 = new GameObject[4];
         charactersPlayer2 = new GameObject[4]; //W wersji rozszerzonej ma być opcja wyboru ilości postaci (chyba)
+        
+        SelectedCharactersSC = GameObject.Find("SelectedCharacters").GetComponent<SelectedCharacters>();
+
+        for (int i = 0; i < SelectedCharactersSC.selectedPlayer1.Count; i++)
+        {
+            Instantiate(characters[SelectedCharactersSC.selectedPlayer1[i]], transform.position, transform.rotation, Player1.transform);
+            Instantiate(characters[SelectedCharactersSC.selectedPlayer2[i]], transform.position, transform.rotation, Player2.transform);
+        }
 
 
-        int i = 0;
+        int j = 0;
         float posY = -2f;
         foreach (Transform child in Player1.transform)
         {
-            charactersPlayer1[i] = child.gameObject;
-            charactersPlayer1[i].transform.position = new Vector3(-6, posY, 0);
-            i++;
+            charactersPlayer1[j] = child.gameObject;
+            charactersPlayer1[j].transform.position = new Vector3(-6, posY, 0);
+            j++;
             posY += 1.5f;
 
         }
 
-        i = 0;
+        j = 0;
         posY = -2f;
         foreach (Transform child in Player2.transform)
         {
-            charactersPlayer2[i] = child.gameObject;
-            charactersPlayer2[i].transform.position = new Vector3(6, posY, 0);
-            i++;
+            charactersPlayer2[j] = child.gameObject;
+            charactersPlayer2[j].transform.position = new Vector3(6, posY, 0);
+            j++;
             posY += 1.5f;
 
         }
 
         TargetCanSC = GameObject.Find("TargetCan").GetComponent<TargetCan>();
         TargetCanRB = GameObject.Find("TargetCan").GetComponent<Rigidbody2D>();
-
-        PlayerHomeSC = PlayerHome.GetComponent<PlayerHome>();
+        
 
         BeerManager1SC = GameObject.Find("BeerManager1").GetComponent<BeerManager>();
         BeerManager2SC = GameObject.Find("BeerManager2").GetComponent<BeerManager>();
@@ -83,11 +93,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerHomeSC.isHome)
-        {
-            stopTimer = true;
-            PlayerHomeSC.isHome = false;
-        }
 
         if (TargetCanSC.hitted)
         {
@@ -204,7 +209,6 @@ public class GameManager : MonoBehaviour
                     
                     currPlayer2SC.currMoveSpeed = 0;
                     charactersPlayer2[j].transform.position = currPlayer2SC.startPosition;
-                    PlayerHome.SetActive(false);
                     currPlayer2SC.canMove = false;
                     currPlayer2SC.rb.bodyType = RigidbodyType2D.Kinematic;
 
@@ -251,7 +255,6 @@ public class GameManager : MonoBehaviour
                     
                     currPlayer1SC.currMoveSpeed = 0;
                     charactersPlayer1[i].transform.position = currPlayer1SC.startPosition;
-                    PlayerHome.SetActive(false);
                     currPlayer1SC.canMove = false;
                     currPlayer1SC.rb.bodyType = RigidbodyType2D.Kinematic;
 

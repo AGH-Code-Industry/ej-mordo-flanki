@@ -6,12 +6,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
-    public float moveSpeed = 5;
+    
     public float currMoveSpeed = 0;
     public bool canMove = false;
-    public float drinkSpeed = 0.2f;
-    public float throwForce = 10f;
+    private float drinkSpeed;
+    private float throwForce;
+    public float moveSpeed;
+    private float accuracy;
+    private float head;
 
     public BeerManager BeerManagerSC;
     
@@ -29,8 +31,21 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isPlayer1 = false;
     private bool isPlayer2 = false;
+    
+    public GameManager GameManagerSC;
+    public CharacterStats CharacterStats;
+    public ArrowController ArrowController;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        GameManagerSC = GameObject.Find("GameManager").GetComponent<GameManager>();
+        drinkSpeed = CharacterStats.drinkSpeed;
+        ArrowController.throwForce = CharacterStats.throwForce;
+        moveSpeed = CharacterStats.moveSpeed;
+        ArrowController.rotationSpeed = CharacterStats.accuracy;
+        head = CharacterStats.head;
+    }
+
     void Start()
     {
         if (transform.parent.name == "Player1")
@@ -50,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         
         targetCan = GameObject.Find("TargetCan");
         targetCanPlace = GameObject.Find("TargetCanPlace");
-        
+
         TCPRenderer = targetCanPlace.GetComponent<SpriteRenderer>();
         TCPColor = TCPRenderer.material.color;
 
@@ -149,4 +164,14 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = new Vector2(moveDirection.x * currMoveSpeed, moveDirection.y * currMoveSpeed);
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "PlayerHome")
+        {
+            GameManagerSC.stopTimer = true;
+            PlayerHome.SetActive(false);
+        }
+    }
+    
 }

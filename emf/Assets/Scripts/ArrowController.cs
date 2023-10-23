@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ArrowController : MonoBehaviour
 {
-    public float rotationSpeed = 180f; 
+    public float rotationSpeed; 
     private float rotationAngle = 90f;
     public Vector3 rotationAxis = Vector3.forward;
     private int rotationDirection = 1;
@@ -15,7 +15,7 @@ public class ArrowController : MonoBehaviour
     public bool isStopped = false;
     public GameObject arrowTip;
     
-    private float throwForce;
+    public float throwForce;
     public GameObject throwCan;
 
     private bool isPlayer1 = false;
@@ -49,8 +49,6 @@ public class ArrowController : MonoBehaviour
             startRotation = 0f;
             isPlayer1 = true;
         }
-
-        throwForce = transform.parent.gameObject.GetComponent<PlayerMovement>().throwForce;
 
     }
 
