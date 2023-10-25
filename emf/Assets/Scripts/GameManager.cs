@@ -5,6 +5,12 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public static class GameInfo
+{
+    public static bool player1Won = false;
+    public static bool player2Won = false;
+}
+
 public class GameManager : MonoBehaviour
 {
 
@@ -111,13 +117,15 @@ public class GameManager : MonoBehaviour
         {
             isOver = true;
             StopAllCoroutines();
-            SceneManager.LoadScene("Menu");
+            GameInfo.player1Won = true;
+            SceneManager.LoadScene("PlayerWonScene");
         }
         if (BeerManager2SC.isEmpty)
         {
             isOver = true;
             StopAllCoroutines();
-            SceneManager.LoadScene("Menu");
+            GameInfo.player2Won = true;
+            SceneManager.LoadScene("PlayerWonScene");
         }
         
     }
