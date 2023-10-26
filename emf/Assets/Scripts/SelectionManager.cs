@@ -20,8 +20,7 @@ public class SelectionManager : MonoBehaviour
     [Header("Kocham Piwo")] 
     public GameObject StartGamePanel;
     public GameObject MainPanel;
-    public int _charactersToSelect = 4;
-    public SelectedCharacters SelectedCharactersSC;
+    public int _charactersToSelect = GameInfo.charactersAmount;
     private string player1Nick = "Player1";
     private string player2Nick = "Player2";
     public TMP_Text nickText;
@@ -79,17 +78,17 @@ public class SelectionManager : MonoBehaviour
         
         if (isPlayer1)
         {
-            if (charactersToSelect > 0 && !SelectedCharactersSC.selectedPlayer1.Contains(indexToAdd))
+            if (charactersToSelect > 0 && !GameInfo.selectedPlayer1.Contains(indexToAdd))
             {
-                SelectedCharactersSC.selectedPlayer1.Add(indexToAdd);
+                GameInfo.selectedPlayer1.Add(indexToAdd);
                 charactersToSelect--;
             }
         }
         else
         {
-            if (charactersToSelect > 0 && !SelectedCharactersSC.selectedPlayer2.Contains(indexToAdd))
+            if (charactersToSelect > 0 && !GameInfo.selectedPlayer2.Contains(indexToAdd))
             {
-                SelectedCharactersSC.selectedPlayer2.Add(indexToAdd);
+                GameInfo.selectedPlayer2.Add(indexToAdd);
                 charactersToSelect--;
             }
         }

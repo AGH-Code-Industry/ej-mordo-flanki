@@ -5,20 +5,12 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class GameInfo
-{
-    public static bool player1Won = false;
-    public static bool player2Won = false;
-}
-
 public class GameManager : MonoBehaviour
 {
 
     [Header("Characters")] 
     public List<GameObject> characters = new List<GameObject>();
 
-    public SelectedCharacters SelectedCharactersSC;
-    
     private bool isOver = false;
     private GameObject Player1;
     private GameObject Player2;
@@ -50,12 +42,12 @@ public class GameManager : MonoBehaviour
         charactersPlayer1 = new GameObject[4];
         charactersPlayer2 = new GameObject[4]; //W wersji rozszerzonej ma być opcja wyboru ilości postaci (chyba)
         
-        SelectedCharactersSC = GameObject.Find("SelectedCharacters").GetComponent<SelectedCharacters>();
+        //SelectedCharactersSC = GameObject.Find("SelectedCharacters").GetComponent<SelectedCharacters>();
 
-        for (int i = 0; i < SelectedCharactersSC.selectedPlayer1.Count; i++)
+        for (int i = 0; i < GameInfo.charactersAmount; i++)
         {
-            Instantiate(characters[SelectedCharactersSC.selectedPlayer1[i]], transform.position, transform.rotation, Player1.transform);
-            Instantiate(characters[SelectedCharactersSC.selectedPlayer2[i]], transform.position, transform.rotation, Player2.transform);
+            Instantiate(characters[GameInfo.selectedPlayer1[i]], transform.position, transform.rotation, Player1.transform);
+            Instantiate(characters[GameInfo.selectedPlayer2[i]], transform.position, transform.rotation, Player2.transform);
         }
 
 
