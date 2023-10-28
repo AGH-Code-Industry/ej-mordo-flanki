@@ -2669,6 +2669,25 @@ MonoBehaviour:
   - {fileID: 964731216}
   - {fileID: 1712911842}
   - {fileID: 1197858218}
+  buttons:
+  - {fileID: 858716236}
+  - {fileID: 267094968}
+  - {fileID: 1031114564}
+  - {fileID: 1115639254}
+  - {fileID: 579831357}
+  - {fileID: 904137388}
+  - {fileID: 1318800474}
+  - {fileID: 416794932}
+  chooseButtons:
+  - {fileID: 629545240}
+  - {fileID: 1434787270}
+  - {fileID: 260395654}
+  - {fileID: 972028919}
+  - {fileID: 995124115}
+  - {fileID: 65533680}
+  - {fileID: 1721025880}
+  - {fileID: 1935144541}
+  StartGame: {fileID: 797953976}
   StartGamePanel: {fileID: 1943114128}
   MainPanel: {fileID: 943551087}
   _charactersToSelect: 4

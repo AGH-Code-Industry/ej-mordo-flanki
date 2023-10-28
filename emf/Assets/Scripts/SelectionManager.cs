@@ -16,6 +16,12 @@ public class SelectionManager : MonoBehaviour
 
     [Header("Selection Characters")] 
     public List<GameObject> selectionCharacters = new List<GameObject>();
+
+    [Header("Buttons")] 
+    public List<Button> buttons;
+    public List<Button> chooseButtons;
+    public Button StartGame;
+    private int currButton = 0;
     
     [Header("Kocham Piwo")] 
     public GameObject StartGamePanel;
@@ -55,6 +61,7 @@ public class SelectionManager : MonoBehaviour
                     DeactivateAllBut(-1);
                     MainPanel.SetActive(true);
                     nickText.text = player2Nick + " turn!";
+                    currButton = 0;
                 }
 
                 if (counter == 2)
@@ -66,12 +73,89 @@ public class SelectionManager : MonoBehaviour
             }
         }
     }
-
+    
     private void Awake()
     {
         nickText.text = player1Nick + " turn!";
     }
 
+    private void Update()
+    {
+        if (isPlayer1)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && !StartGamePanel.activeSelf)
+            {
+                buttons[0].onClick.Invoke();
+            }
+            else if (Input.GetKeyDown(KeyCode.A))
+            {
+                SelectPreviousButton();
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                SelectNextButton();
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                ChooseButton();
+            }
+        }
+
+        if (isPlayer2)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && !StartGamePanel.activeSelf)
+            {
+                buttons[0].onClick.Invoke();
+            }
+
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                SelectPreviousButton();
+            }
+
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                SelectNextButton();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Period))
+            {
+                ChooseButton();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && StartGamePanel.activeSelf)
+        {
+            StartGame.onClick.Invoke();
+        }
+    }
+
+    void SelectNextButton()
+    {
+        currButton++;
+        if (currButton > 7)
+        {
+            currButton = 0;
+        }
+        buttons[currButton].onClick.Invoke();
+    }
+
+    void SelectPreviousButton()
+    {
+        currButton--;
+        if (currButton < 0)
+        {
+            currButton = 7;
+        }
+        buttons[currButton].onClick.Invoke();
+    }
+
+    void ChooseButton()
+    {
+        chooseButtons[currButton].onClick.Invoke();
+    }
+    
     public void AddToList(int indexToAdd)
     {
         selectionCharacters[indexToAdd].GetComponent<SpriteRenderer>().color = chosenColor;
@@ -98,7 +182,6 @@ public class SelectionManager : MonoBehaviour
         
     private void DeactivateAllBut(int index)
     {
-        MainPanel.SetActive(false);
 
         foreach (GameObject panel in charactersPanels)
         {
