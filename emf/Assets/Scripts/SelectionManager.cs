@@ -17,6 +17,9 @@ public class SelectionManager : MonoBehaviour
     [Header("Selection Characters")] 
     public List<GameObject> selectionCharacters = new List<GameObject>();
 
+    private List<int> selectedCharacters = new List<int>();
+    private int selectedAmount = GameInfo.teamSize*2;
+
     [Header("Buttons")] 
     public List<Button> buttons;
     public List<Button> chooseButtons;
@@ -25,16 +28,13 @@ public class SelectionManager : MonoBehaviour
     
     [Header("Kocham Piwo")] 
     public GameObject StartGamePanel;
-    public GameObject MainPanel;
-    public int _charactersToSelect = GameInfo.charactersAmount;
-    private string player1Nick = "Player1";
-    private string player2Nick = "Player2";
+    private string player1Nick = GameInfo.getPlayer1Nick();
+    private string player2Nick = GameInfo.getPlayer2Nick();
     public TMP_Text nickText;
     
     private Vector3 standardSize = new Vector3(0.05f, 0.05f, 0.05f);
     private Vector3 scaledSize = new Vector3(0.08f, 0.08f, 0.08f);
-
-    private Color standardColor = Color.white;
+    
     private Color chosenColor = Color.gray;
     
 
@@ -42,38 +42,7 @@ public class SelectionManager : MonoBehaviour
     public bool isPlayer2 = false;
 
     private int counter = 0;
-    public int charactersToSelect
-    {
-        
-        get { return _charactersToSelect;  }
-        set
-        {
-            _charactersToSelect = value;
-            if (_charactersToSelect == 0)
-            {
-                counter++;
-                if (isPlayer1)
-                {
-                    isPlayer1 = false;
-                    isPlayer2 = true;
-                    _charactersToSelect = 4;
-                    BringColorsBack();
-                    DeactivateAllBut(-1);
-                    MainPanel.SetActive(true);
-                    nickText.text = player2Nick + " turn!";
-                    currButton = 0;
-                }
 
-                if (counter == 2)
-                {
-                    DeactivateAllBut(-1);
-                    StartGamePanel.SetActive(true);
-                    BringColorsBack();
-                }
-            }
-        }
-    }
-    
     private void Awake()
     {
         nickText.text = player1Nick + " turn!";
@@ -162,23 +131,51 @@ public class SelectionManager : MonoBehaviour
         
         if (isPlayer1)
         {
-            if (charactersToSelect > 0 && !GameInfo.selectedPlayer1.Contains(indexToAdd))
+            if (!selectedCharacters.Contains(indexToAdd))
             {
                 GameInfo.selectedPlayer1.Add(indexToAdd);
-                charactersToSelect--;
+                selectedCharacters.Add(indexToAdd);
+                selectedAmount--;
+                if (selectedAmount == 0)
+                {
+                    DeactivateAllBut(-1);
+                    StartGamePanel.SetActive(true);
+                }
+                else
+                {
+                    SwitchPlayer();
+                }
             }
         }
         else
         {
-            if (charactersToSelect > 0 && !GameInfo.selectedPlayer2.Contains(indexToAdd))
+            if (!selectedCharacters.Contains(indexToAdd))
             {
                 GameInfo.selectedPlayer2.Add(indexToAdd);
-                charactersToSelect--;
+                selectedCharacters.Add(indexToAdd);
+                selectedAmount--;
+                if (selectedAmount == 0)
+                {
+                    DeactivateAllBut(-1);
+                    StartGamePanel.SetActive(true);
+                }
+                else
+                {
+                    SwitchPlayer();
+                }
             }
         }
         
     }
     
+    private void SwitchPlayer()
+    {
+        isPlayer1 = !isPlayer1;
+        isPlayer2 = !isPlayer2;
+        nickText.text = isPlayer1 ? player1Nick + " turn!" : player2Nick + " turn!";
+        DeactivateAllBut(-1);
+    }
+
         
     private void DeactivateAllBut(int index)
     {
@@ -204,14 +201,6 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-    private void BringColorsBack()
-    {
-        foreach (GameObject character in selectionCharacters)
-        {
-            character.GetComponent<SpriteRenderer>().color = standardColor;
-        }
-    }
-    
     public void ChooseBlue()
     {
         AddToList(0);

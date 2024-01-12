@@ -32,6 +32,9 @@ public class GameManager : MonoBehaviour
     private BeerManager BeerManager1SC;
     private BeerManager BeerManager2SC;
 
+    private bool player1IsThrowing = false;
+    private float speedBoostDuration = 30f;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -44,7 +47,7 @@ public class GameManager : MonoBehaviour
         
         //SelectedCharactersSC = GameObject.Find("SelectedCharacters").GetComponent<SelectedCharacters>();
 
-        for (int i = 0; i < GameInfo.charactersAmount; i++)
+        for (int i = 0; i < GameInfo.teamSize; i++)
         {
             Instantiate(characters[GameInfo.selectedPlayer1[i]], transform.position, transform.rotation, Player1.transform);
             Instantiate(characters[GameInfo.selectedPlayer2[i]], transform.position, transform.rotation, Player2.transform);
@@ -180,7 +183,7 @@ public class GameManager : MonoBehaviour
             if (turnCounter % 2 == 0) // player1 - rzuca | player2 - biegnie
             {
                 //---------------------------------------------------------------------- rzut w puche player1
-            
+                player1IsThrowing = true;
                 charactersPlayer1[i].transform.GetChild(1).gameObject.SetActive(true);
                 yield return StartCoroutine(ThrowTurnTimer(turnTime));
                 charactersPlayer1[i].transform.GetChild(1).gameObject.SetActive(false);
@@ -226,7 +229,7 @@ public class GameManager : MonoBehaviour
             else // player2 - rzuca | player1 - biegnie
             {
                 //---------------------------------------------------------------------- rzut w puche player2
-
+                player1IsThrowing = false;
                 charactersPlayer2[j].transform.GetChild(1).gameObject.SetActive(true);
                 yield return StartCoroutine(ThrowTurnTimer(turnTime));
                 charactersPlayer2[j].transform.GetChild(1).gameObject.SetActive(false);
@@ -282,6 +285,69 @@ public class GameManager : MonoBehaviour
 
         }
     }
-    
+
+    public void applySpeedBoost()
+    {
+        if (player1IsThrowing)
+        {
+            for(int i = 0; i < charactersPlayer1.Length; i++)
+            {
+                PlayerMovement movement = charactersPlayer1[i].GetComponent<PlayerMovement>();
+                if (movement != null)
+                {
+                    movement.moveSpeed *= 1.5f;
+                }
+            }
+            Invoke("deactivateSpeedBoostForPlayer1", speedBoostDuration);
+        }
+        else
+        {
+            for(int i = 0; i < charactersPlayer2.Length; i++)
+            {
+                PlayerMovement movement = charactersPlayer2[i].GetComponent<PlayerMovement>();
+                if (movement != null)
+                {
+                    movement.moveSpeed *= 1.5f;
+                }
+            }
+            Invoke("deactivateSpeedBoostForPlayer2", speedBoostDuration);
+        }
+    }
+
+    public void deactivateSpeedBoost(bool forPlayer1)
+    {
+        if (forPlayer1)
+        {
+            for(int i = 0; i < charactersPlayer1.Length; i++)
+            {
+                PlayerMovement movement = charactersPlayer1[i].GetComponent<PlayerMovement>();
+                if (movement != null)
+                {
+                    movement.moveSpeed /= 1.5f;
+                }
+                
+            }
+        }
+        else
+        {
+            for(int i = 0; i < charactersPlayer2.Length; i++)
+            {
+                PlayerMovement movement = charactersPlayer2[i].GetComponent<PlayerMovement>();
+                if (movement != null)
+                {
+                    movement.moveSpeed /= 1.5f;
+                }
+            }
+        }
+    }
+
+    public void deactivateSpeedBoostForPlayer1()
+    {
+        deactivateSpeedBoost(true);
+    }
+    public void deactivateSpeedBoostForPlayer2()
+    {
+        deactivateSpeedBoost(false);
+    }
 
 }

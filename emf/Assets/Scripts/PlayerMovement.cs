@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    
     public float currMoveSpeed = 0;
     public bool canMove = false;
     private float drinkSpeed;
@@ -16,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private float head;
 
     public BeerManager BeerManagerSC;
-    
+
     public Rigidbody2D rb;
     private Vector2 moveDirection;
 
@@ -31,10 +30,19 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isPlayer1 = false;
     private bool isPlayer2 = false;
-    
+
     public GameManager GameManagerSC;
     public CharacterStats CharacterStats;
     public ArrowController ArrowController;
+
+    private float swayAmount = 0;
+    private float targetSwayAmount = 0;
+    private float swayChangeInterval = 2.0f;
+    private float lastSwayChangeTime = 0f;
+
+    private float drunkennessTimeCounter = 0.0f;
+    private float drunkennessEffectFrequency = 4.0f;
+    private float drunkBeer = 0.0f;
 
     private void Awake()
     {
@@ -60,29 +68,21 @@ public class PlayerMovement : MonoBehaviour
             BeerManagerSC = GameObject.Find("BeerManager2").GetComponent<BeerManager>();
             BeerManagerSC.beerSpeed += drinkSpeed;
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
-
         }
-        
+
         targetCan = GameObject.Find("TargetCan");
         targetCanPlace = GameObject.Find("TargetCanPlace");
-
         TCPRenderer = targetCanPlace.GetComponent<SpriteRenderer>();
         TCPColor = TCPRenderer.material.color;
-
         startPosition = transform.position;
-        
-        
-
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isPlayer1)
         {
             InputsPlayer1();
         }
-        
         else if (isPlayer2)
         {
             InputsPlayer2();
@@ -90,38 +90,67 @@ public class PlayerMovement : MonoBehaviour
 
         if (isPlayer1)
         {
-
             if (targetCan.GetComponent<TargetCan>().pickUpAllowed && Input.GetKeyDown(KeyCode.Space) && canMove)
             {
                 Pickup();
             }
-
             if (targetCanPlace.GetComponent<TargetCanPlace>().canPlace && Input.GetKeyDown(KeyCode.Space) && canMove)
             {
                 Place();
             }
         }
-        
         else
         {
             if (targetCan.GetComponent<TargetCan>().pickUpAllowed && Input.GetKeyDown(KeyCode.Slash) && canMove)
             {
                 Pickup();
             }
-
             if (targetCanPlace.GetComponent<TargetCanPlace>().canPlace && Input.GetKeyDown(KeyCode.Slash) && canMove)
             {
                 Place();
             }
         }
 
+        drunkBeer = BeerManagerSC.getDrunkBeer() / drinkSpeed;
     }
 
     private void FixedUpdate()
     {
-        
+        ApplyDrunkenEffect();
         Move();
-        
+    }
+
+    void ApplyDrunkenEffect()
+    {
+        float normalizedHead = (100.0f - head) / 100.0f;
+        float normalizedDrunkBeer = drunkBeer / 100.0f;
+
+        float drunkenness = normalizedDrunkBeer * normalizedHead;
+
+        if (moveDirection.magnitude > 0)
+        {
+            float chanceToApplyEffect = drunkenness;
+            
+            if (UnityEngine.Random.Range(0f, 1f) < chanceToApplyEffect)
+            {
+                drunkennessTimeCounter += Time.fixedDeltaTime * drunkennessEffectFrequency;
+                float swayX = Mathf.Sin(drunkennessTimeCounter) * drunkenness / 2;
+                float swayY = Mathf.Cos(drunkennessTimeCounter) * drunkenness / 2;
+
+                moveDirection.x += swayX;
+                moveDirection.y += swayY;
+                moveDirection = moveDirection.normalized;
+            }
+        }
+        else
+        {
+            drunkennessTimeCounter = 0.0f;
+        }
+    }
+
+    void Move()
+    {
+        rb.velocity = new Vector2(moveDirection.x * currMoveSpeed, moveDirection.y * currMoveSpeed);
     }
 
     void Pickup()
@@ -138,17 +167,15 @@ public class PlayerMovement : MonoBehaviour
         TCPColor.a = 0f;
         TCPRenderer.color = TCPColor;
         targetCan.transform.position = targetCanPlace.GetComponent<TargetCanPlace>().placePosition;
-        targetCan.transform.rotation = Quaternion.Euler(0f,0f,0f);
+        targetCan.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         PlayerHome.SetActive(true);
         PlayerHome.transform.position = startPosition;
-
     }
-    
+
     void InputsPlayer1()
     {
         float moveX = Input.GetAxisRaw("Horizontal1");
         float moveY = Input.GetAxisRaw("Vertical1");
-
         moveDirection = new Vector2(moveX, moveY).normalized;
     }
 
@@ -156,13 +183,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float moveX = Input.GetAxisRaw("Horizontal2");
         float moveY = Input.GetAxisRaw("Vertical2");
-
         moveDirection = new Vector2(moveX, moveY).normalized;
-    }
-
-    void Move()
-    {
-        rb.velocity = new Vector2(moveDirection.x * currMoveSpeed, moveDirection.y * currMoveSpeed);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -173,5 +194,4 @@ public class PlayerMovement : MonoBehaviour
             PlayerHome.SetActive(false);
         }
     }
-    
 }

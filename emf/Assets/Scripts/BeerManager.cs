@@ -51,5 +51,10 @@ public class BeerManager : MonoBehaviour
         beerBar.fillAmount = beerAmount / 100f;
         
     }
+
+    public float getDrunkBeer()
+    {
+        return 100-beerAmount;
+    }
     
 }

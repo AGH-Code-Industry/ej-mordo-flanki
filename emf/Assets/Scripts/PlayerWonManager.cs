@@ -20,11 +20,11 @@ public class PlayerWonManager : MonoBehaviour
     {
         if (GameInfo.player1Won)
         {
-            playerWonText.text = GameInfo.player1Nick + " Won!";
+            playerWonText.text = GameInfo.getPlayer1Nick() + " Won!";
         }
         else
         {
-            playerWonText.text = GameInfo.player2Nick + " Won!";
+            playerWonText.text = GameInfo.getPlayer2Nick()+ " Won!";
         }
         
         playAgain.GameObject().SetActive(true);
