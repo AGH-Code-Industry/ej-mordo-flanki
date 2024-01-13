@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = System.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,6 +35,13 @@ public class GameManager : MonoBehaviour
 
     private bool player1IsThrowing = false;
     private float speedBoostDuration = 30f;
+    private float boostProbability = 0.001f;
+    private bool boostSpawned = false;
+    private float boostSpawnedDuration = 10f;
+    [SerializeField] private GameObject speedBoost;
+    public GameObject speedBoostInstance;
+    private Vector3 spawnFieldLeftBot = new Vector3(-4, -3, 0);
+    private Vector3 spawnFieldRightTop = new Vector3(4, 3, 0);
 
 
     // Start is called before the first frame update
@@ -121,6 +129,18 @@ public class GameManager : MonoBehaviour
             StopAllCoroutines();
             GameInfo.player2Won = true;
             SceneManager.LoadScene("PlayerWonScene");
+        }
+
+        if (UnityEngine.Random.value <= boostProbability && !boostSpawned)
+        {
+            float randomX = UnityEngine.Random.Range(spawnFieldLeftBot.x, spawnFieldRightTop.x);
+            float randomY = UnityEngine.Random.Range(spawnFieldLeftBot.y, spawnFieldRightTop.y);
+            float randomZ = 0;
+            Vector3 randomPosition = new Vector3(randomX, randomY, randomZ);
+            speedBoostInstance = Instantiate(speedBoost, randomPosition, Quaternion.identity);
+            boostSpawned = true;
+            Invoke("destroySpeedBoost", boostSpawnedDuration);
+            
         }
         
     }
@@ -288,6 +308,7 @@ public class GameManager : MonoBehaviour
 
     public void applySpeedBoost()
     {
+        destroySpeedBoost();
         if (player1IsThrowing)
         {
             for(int i = 0; i < charactersPlayer1.Length; i++)
@@ -314,7 +335,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void deactivateSpeedBoost(bool forPlayer1)
+    private void deactivateSpeedBoost(bool forPlayer1)
     {
         if (forPlayer1)
         {
@@ -341,13 +362,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void deactivateSpeedBoostForPlayer1()
+    private void deactivateSpeedBoostForPlayer1()
     {
         deactivateSpeedBoost(true);
     }
-    public void deactivateSpeedBoostForPlayer2()
+    private void deactivateSpeedBoostForPlayer2()
     {
         deactivateSpeedBoost(false);
+    }
+
+    private void destroySpeedBoost()
+    {
+        boostSpawned = false;
+        Destroy(speedBoostInstance);
     }
 
 }
