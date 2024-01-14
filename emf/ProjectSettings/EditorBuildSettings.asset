@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/ChooseNicknameScene.unity
     guid: 425e3bf4b60554093ab269fa27a52777
   - enabled: 1
+    path: Assets/Scenes/ChooseMapScene.unity
+    guid: 07c26489619244a4abb9d7e6e4d47fcd
+  - enabled: 1
     path: Assets/Scenes/SelectionScene.unity
     guid: 5c51f3775fc474589b3d1349eab33eb7
   - enabled: 1

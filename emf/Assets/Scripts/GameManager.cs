@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
 
+        Instantiate(GameInfo.map, new Vector3(0, 0, 0), Quaternion.identity);
+
         Player1 = GameObject.Find("Player1");
         Player2 = GameObject.Find("Player2");
         charactersPlayer1 = new GameObject[4];
@@ -63,24 +65,24 @@ public class GameManager : MonoBehaviour
 
 
         int j = 0;
-        float posY = -2f;
+        float posY = -13f;
         foreach (Transform child in Player1.transform)
         {
             charactersPlayer1[j] = child.gameObject;
-            charactersPlayer1[j].transform.position = new Vector3(-6, posY, 0);
+            charactersPlayer1[j].transform.position = new Vector3(-23, posY, 0);
             j++;
-            posY += 1.5f;
+            posY += 9f;
 
         }
 
         j = 0;
-        posY = -2f;
+        posY = -13f;
         foreach (Transform child in Player2.transform)
         {
             charactersPlayer2[j] = child.gameObject;
-            charactersPlayer2[j].transform.position = new Vector3(6, posY, 0);
+            charactersPlayer2[j].transform.position = new Vector3(23, posY, 0);
             j++;
-            posY += 1.5f;
+            posY += 9f;
 
         }
 

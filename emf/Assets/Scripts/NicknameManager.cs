@@ -33,7 +33,7 @@ public class NicknameManager : MonoBehaviour
             else
             {
                 setNickPlayer2();
-                SceneManager.LoadScene("SelectionScene");
+                SceneManager.LoadScene("ChooseMapScene");
             }
         }
     }

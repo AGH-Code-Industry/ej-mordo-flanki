@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class GameInfo
 {
@@ -11,6 +12,7 @@ public static class GameInfo
     public static readonly int teamSize = 4;
     public static List<int> selectedPlayer1 = new List<int>();
     public static List<int> selectedPlayer2 = new List<int>();
+    public static GameObject map;
 
     public static void setPlayer1Nick(string nick)
     {
