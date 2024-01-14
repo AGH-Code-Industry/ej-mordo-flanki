@@ -16,6 +16,8 @@ public class SelectionManager : MonoBehaviour
 
     [Header("Selection Characters")] 
     public List<GameObject> selectionCharacters = new List<GameObject>();
+    [Header("Panels Rect")]
+    public List<GameObject> panelsRectTransform = new List<GameObject>();
 
     private List<int> selectedCharacters = new List<int>();
     private int selectedAmount = GameInfo.teamSize*2;
@@ -23,15 +25,18 @@ public class SelectionManager : MonoBehaviour
     [Header("Buttons")] 
     public List<Button> buttons;
     public List<Button> chooseButtons;
+    
+    [Header("Kocham Piwo")]
     public Button StartGame;
     private int currButton = 0;
-    
-    [Header("Kocham Piwo")] 
     public GameObject StartGamePanel;
     private string player1Nick = GameInfo.getPlayer1Nick();
     private string player2Nick = GameInfo.getPlayer2Nick();
     public TMP_Text nickText;
-    
+
+    public GameObject chosenPlayer1Panel;
+    public GameObject chosenPlayer2Panel;
+
     private Vector3 standardSize = new Vector3(0.05f, 0.05f, 0.05f);
     private Vector3 scaledSize = new Vector3(0.08f, 0.08f, 0.08f);
     
@@ -45,7 +50,7 @@ public class SelectionManager : MonoBehaviour
 
     private void Awake()
     {
-        nickText.text = player1Nick + " turn!";
+        nickText.text = player1Nick + ", twoja kolej";
     }
 
     private void Update()
@@ -136,6 +141,9 @@ public class SelectionManager : MonoBehaviour
                 GameInfo.selectedPlayer1.Add(indexToAdd);
                 selectedCharacters.Add(indexToAdd);
                 selectedAmount--;
+
+                Instantiate(panelsRectTransform[indexToAdd], chosenPlayer1Panel.transform);
+
                 if (selectedAmount == 0)
                 {
                     DeactivateAllBut(-1);
@@ -154,6 +162,10 @@ public class SelectionManager : MonoBehaviour
                 GameInfo.selectedPlayer2.Add(indexToAdd);
                 selectedCharacters.Add(indexToAdd);
                 selectedAmount--;
+                
+                GameObject obj = Instantiate(panelsRectTransform[indexToAdd], chosenPlayer2Panel.transform);
+                obj.GetComponent<RectTransform>().localScale = new Vector3(-1, 1, 1);
+                
                 if (selectedAmount == 0)
                 {
                     DeactivateAllBut(-1);
@@ -172,7 +184,7 @@ public class SelectionManager : MonoBehaviour
     {
         isPlayer1 = !isPlayer1;
         isPlayer2 = !isPlayer2;
-        nickText.text = isPlayer1 ? player1Nick + " turn!" : player2Nick + " turn!";
+        nickText.text = isPlayer1 ? player1Nick + ",twoja kolej" : player2Nick + ", twoja kolej";
         DeactivateAllBut(-1);
     }
 
