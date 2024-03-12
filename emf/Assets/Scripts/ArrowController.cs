@@ -52,7 +52,28 @@ public class ArrowController : MonoBehaviour
 
     }
 
-    void Update()
+    private void Update()
+    {
+        if (isPlayer1)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && !isStopped)
+            {
+                isStopped = true;
+                Throw(transform.right);
+            }
+        }
+        
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Slash) && !isStopped)
+            {
+                isStopped = true;
+                Throw(transform.right);
+            }
+        }
+    }
+
+    void FixedUpdate()
     {
         if (!isStopped)
         {
@@ -70,24 +91,6 @@ public class ArrowController : MonoBehaviour
                 rotationDirection *= -1;
             }
             
-        }
-
-        if (isPlayer1)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && !isStopped)
-            {
-                isStopped = true;
-                Throw(transform.right);
-            }
-        }
-        
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Slash) && !isStopped)
-            {
-                isStopped = true;
-                Throw(transform.right);
-            }
         }
     }
 

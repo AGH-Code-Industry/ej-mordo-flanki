@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     private BeerManager BeerManager2SC;
 
     private bool player1IsThrowing = false;
-    private float speedBoostDuration = 30f;
+    private float speedBoostDuration = 40f;
     private float boostProbability = 0.001f;
     private bool boostSpawned = false;
     private float boostSpawnedDuration = 10f;

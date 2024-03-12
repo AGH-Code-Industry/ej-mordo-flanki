@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b950676148e214cebbb0733262068ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  throwForce: 10
+  moveSpeed: 10
+  throwForce: 20
   drinkSpeed: 0.5
   accuracy: 130
   head: 5

@@ -27,7 +27,6 @@ public class ThrowCan : MonoBehaviour
         }
         else
         {
-            Debug.Log("chujchuj");
             GameManager.hittedSomethingElse = true;
             hitSomethingElse = true;
             gameObject.SetActive(false);

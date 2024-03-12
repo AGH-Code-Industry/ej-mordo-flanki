@@ -56,11 +56,17 @@ public class TargetCan : MonoBehaviour
 
     void SlowDown()
     {
-        float slowDownFactor = Mathf.Log(1 + rb.velocity.magnitude * slow);
-        rb.velocity *= Mathf.Pow(1f - slowDownFactor, Time.deltaTime);
+        if (!float.IsNaN(rb.velocity.x) && !float.IsNaN(rb.velocity.y))
+        {
+            float slowDownFactor = 1f - (slow * Time.deltaTime);
+            rb.velocity *= slowDownFactor;
+        }
         
-        float rotationSpeed = rb.angularVelocity;
-        rotationSpeed *= Mathf.Pow(1f - slow, Time.deltaTime);
-        rb.angularVelocity = rotationSpeed;
+        if (!float.IsNaN(rb.angularVelocity))
+        {
+            float rotationSlowDownFactor = 1f - (slow * Time.deltaTime);
+            rb.angularVelocity *= rotationSlowDownFactor;
+        }
     }
+
 }
