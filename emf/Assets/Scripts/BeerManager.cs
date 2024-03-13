@@ -29,12 +29,12 @@ public class BeerManager : MonoBehaviour
     {
         if (isPlayer1 && canDrink)
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 DrinkBeer(beerSpeed);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Period) && canDrink)
+        else if (Input.GetKeyDown(KeyCode.Slash) && canDrink)
         {
             DrinkBeer(beerSpeed);
         }

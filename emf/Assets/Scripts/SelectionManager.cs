@@ -70,7 +70,7 @@ public class SelectionManager : MonoBehaviour
                 SelectNextButton();
             }
 
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 ChooseButton();
             }
@@ -93,7 +93,7 @@ public class SelectionManager : MonoBehaviour
                 SelectNextButton();
             }
             
-            if (Input.GetKeyDown(KeyCode.Period))
+            if (Input.GetKeyDown(KeyCode.Slash))
             {
                 ChooseButton();
             }
