@@ -90,11 +90,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (isPlayer1)
         {
-            if (targetCan.GetComponent<TargetCan>().pickUpAllowed && Input.GetKeyDown(KeyCode.V) && canMove)
+            if (targetCan.GetComponent<TargetCan>().pickUpAllowed && Input.GetKeyDown(KeyCode.C) && canMove)
             {
                 Pickup();
             }
-            if (targetCanPlace.GetComponent<TargetCanPlace>().canPlace && Input.GetKeyDown(KeyCode.V) && canMove)
+            if (targetCanPlace.GetComponent<TargetCanPlace>().canPlace && Input.GetKeyDown(KeyCode.C) && canMove)
             {
                 Place();
             }
