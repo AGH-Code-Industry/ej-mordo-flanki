@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b950676148e214cebbb0733262068ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
+  moveSpeed: 17
   throwForce: 40
   drinkSpeed: 0.04
   accuracy: 120

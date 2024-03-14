@@ -43,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
     private float drunkennessTimeCounter = 0.0f;
     private float drunkennessEffectFrequency = 4.0f;
     private float drunkBeer = 0.0f;
+    private float timer = 0f;
+    private int offset = 10;
 
     private void Awake()
     {
@@ -118,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
     {
         ApplyDrunkenEffect();
         Move();
+        timer += 0.005f;
     }
 
     void ApplyDrunkenEffect()
@@ -134,8 +137,8 @@ public class PlayerMovement : MonoBehaviour
             if (UnityEngine.Random.Range(0f, 1f) < chanceToApplyEffect)
             {
                 drunkennessTimeCounter += Time.fixedDeltaTime * drunkennessEffectFrequency;
-                float swayX = Mathf.Sin(drunkennessTimeCounter) * drunkenness / 2;
-                float swayY = Mathf.Cos(drunkennessTimeCounter) * drunkenness / 2;
+                float swayX = Mathf.Sin(drunkennessTimeCounter) * Offset() * Mathf.Sin(drunkennessTimeCounter + 10) * drunkenness / 2;
+                float swayY = Mathf.Cos(drunkennessTimeCounter) * Offset() * Mathf.Sin(drunkennessTimeCounter + 10) * drunkenness / 2;
 
                 moveDirection.x += swayX;
                 moveDirection.y += swayY;
@@ -146,6 +149,17 @@ public class PlayerMovement : MonoBehaviour
         {
             drunkennessTimeCounter = 0.0f;
         }
+    }
+
+    int Offset()
+    {
+        if(timer >= 2f){
+            Debug.Log("chujchuj");
+            timer = 0f;
+            return offset*(-1);
+
+        }
+        return offset;
     }
 
     void Move()
