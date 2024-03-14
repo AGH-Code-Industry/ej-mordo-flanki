@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ApplyDrunkenEffect()
     {
-        float normalizedHead = (130.0f - head) / 100.0f;
+        float normalizedHead = (125.0f - head) / 100.0f;
         float normalizedDrunkBeer = drunkBeer / 100.0f;
 
         float drunkenness = normalizedDrunkBeer * normalizedHead;
