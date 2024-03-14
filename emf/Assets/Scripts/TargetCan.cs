@@ -64,7 +64,7 @@ public class TargetCan : MonoBehaviour
         
         if (!float.IsNaN(rb.angularVelocity))
         {
-            float rotationSlowDownFactor = 1f - (slow * Time.deltaTime);
+            float rotationSlowDownFactor = 1f - (slow  * Time.deltaTime);
             rb.angularVelocity *= rotationSlowDownFactor;
         }
     }
