@@ -134,8 +134,8 @@ public class PlayerMovement : MonoBehaviour
             if (UnityEngine.Random.Range(0f, 1f) < chanceToApplyEffect)
             {
                 drunkennessTimeCounter += Time.fixedDeltaTime * drunkennessEffectFrequency;
-                float swayX = Mathf.Sin(Mathf.Cos(drunkennessTimeCounter)) * drunkenness / 2;
-                float swayY = Mathf.Cos(Mathf.Cos(drunkennessTimeCounter)) * drunkenness / 2;
+                float swayX = Mathf.Sin(drunkennessTimeCounter) * drunkenness / 2;
+                float swayY = Mathf.Cos(drunkennessTimeCounter) * drunkenness / 2;
 
                 moveDirection.x += swayX;
                 moveDirection.y += swayY;
