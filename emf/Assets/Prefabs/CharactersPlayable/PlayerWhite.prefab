@@ -199,9 +199,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 15
   throwForce: 40
-  drinkSpeed: 0.1
+  drinkSpeed: 0.12
   accuracy: 80
-  head: 100
+  head: 85
 --- !u!1001 &5835164660836213090
 PrefabInstance:
   m_ObjectHideFlags: 0
