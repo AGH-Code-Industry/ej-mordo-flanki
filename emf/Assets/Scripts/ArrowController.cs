@@ -56,7 +56,7 @@ public class ArrowController : MonoBehaviour
     {
         if (isPlayer1)
         {
-            if (Input.GetKeyDown(KeyCode.V) && !isStopped)
+            if (Input.GetKeyDown(KeyCode.C) && !isStopped)
             {
                 isStopped = true;
                 Throw(transform.right);

@@ -99,11 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b950676148e214cebbb0733262068ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 12
-  throwForce: 16
-  drinkSpeed: 0.4
-  accuracy: 140
-  head: 60
+  moveSpeed: 25
+  throwForce: 40
+  drinkSpeed: 0.085
+  accuracy: 40
+  head: 119
 --- !u!1001 &4430069133065875536
 PrefabInstance:
   m_ObjectHideFlags: 0
