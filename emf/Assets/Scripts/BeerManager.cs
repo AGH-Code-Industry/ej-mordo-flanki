@@ -34,7 +34,7 @@ public class BeerManager : MonoBehaviour
                 DrinkBeer(beerSpeed);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Slash) && canDrink)
+        else if (Input.GetKeyDown(KeyCode.Period) && canDrink)
         {
             DrinkBeer(beerSpeed);
         }
