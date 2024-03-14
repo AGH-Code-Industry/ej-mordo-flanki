@@ -2945,7 +2945,7 @@ MonoBehaviour:
   - {fileID: 416794932}
   chooseButtons:
   - {fileID: 1999107662}
-  - {fileID: 0}
+  - {fileID: 475939790}
   - {fileID: 523962945}
   - {fileID: 546135911}
   - {fileID: 1878910029}
