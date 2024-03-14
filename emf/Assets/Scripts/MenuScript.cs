@@ -14,6 +14,11 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        
+
+    }
+
+    public void CoButton()
+    {
+        SceneManager.LoadScene("CoScene");
     }
 }

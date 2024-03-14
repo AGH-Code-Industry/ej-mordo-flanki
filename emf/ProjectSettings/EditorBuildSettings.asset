@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: dd51a9f462e96124ebf7e12d4d942e06
   - enabled: 1
+    path: Assets/Scenes/CoScene.unity
+    guid: 6fae29946a0ac456a9b392de40a992c7
+  - enabled: 1
     path: Assets/Scenes/ChooseNicknameScene.unity
     guid: 425e3bf4b60554093ab269fa27a52777
   - enabled: 1
