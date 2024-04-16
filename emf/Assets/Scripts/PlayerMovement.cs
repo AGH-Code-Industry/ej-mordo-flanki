@@ -167,29 +167,25 @@ public class PlayerMovement : MonoBehaviour
 
     void ApplyDrunkenEffect()
 {
-    float normalizedHead = (125.0f - head) / 100.0f;
+    float normalizedHead = (100.0f - head) / 100.0f;
     float normalizedDrunkBeer = drunkBeer / 100.0f;
 
     float drunkenness = normalizedDrunkBeer * normalizedHead;
 
     if (moveDirection.magnitude > 0)
-    {
-        float chanceToApplyEffect = drunkenness;
-        Debug.Log(drunkenness);
-        Debug.Log(moveSpeed);
-        
-        
+    {        
 
         if (Time.time - lastSwayChangeTime >= swayChangeInterval)
         {
-            float offset = Math.Abs(drunkenness/4 - moveSpeed/10);
+            float offset = drunkenness / (4 + currMoveSpeed / 5);
+            Debug.Log(offset);
+
             lastSwayChangeTime = Time.time;
             swayAmount = UnityEngine.Random.Range(- offset, offset);
             targetSwayAmount = UnityEngine.Random.Range(- offset, offset);
         }
 
         swayAmount = Mathf.Lerp(swayAmount, targetSwayAmount, (Time.time - lastSwayChangeTime) / swayChangeInterval) + Mathf.Sin(swayAmount)/4;
-        
         moveDirection.x += swayAmount;
         moveDirection.y += swayAmount;
 
