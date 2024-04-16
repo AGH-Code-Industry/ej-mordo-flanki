@@ -201,7 +201,7 @@ MonoBehaviour:
   throwForce: 40
   drinkSpeed: 0.12
   accuracy: 60
-  head: 85
+  head: 50
 --- !u!1001 &731798921394984611
 PrefabInstance:
   m_ObjectHideFlags: 0
