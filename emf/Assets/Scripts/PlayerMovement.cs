@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float swayAmount = 0;
     private float targetSwayAmount = 0;
-    private float swayChangeInterval = 2.0f;
+    private float swayChangeInterval = 1.0f;
     private float lastSwayChangeTime = 0f;
 
     private float drunkennessTimeCounter = 0.0f;
@@ -123,44 +123,81 @@ public class PlayerMovement : MonoBehaviour
         timer += 0.005f;
     }
 
-    void ApplyDrunkenEffect()
-    {
-        float normalizedHead = (125.0f - head) / 100.0f;
-        float normalizedDrunkBeer = drunkBeer / 100.0f;
+    // void ApplyDrunkenEffect()
+    // {
+    //     float normalizedHead = (125.0f - head) / 100.0f;
+    //     float normalizedDrunkBeer = drunkBeer / 100.0f;
 
-        float drunkenness = normalizedDrunkBeer * normalizedHead;
+    //     float drunkenness = normalizedDrunkBeer * normalizedHead;
 
-        if (moveDirection.magnitude > 0)
-        {
-            float chanceToApplyEffect = drunkenness;
+    //     if (moveDirection.magnitude > 0)
+    //     {
+    //         float chanceToApplyEffect = drunkenness;
             
-            if (UnityEngine.Random.Range(0f, 1f) < chanceToApplyEffect)
-            {
-                drunkennessTimeCounter += Time.fixedDeltaTime * drunkennessEffectFrequency;
-                float swayX = Mathf.Sin(drunkennessTimeCounter) * Offset() * Mathf.Sin(drunkennessTimeCounter + 10) * drunkenness / 2;
-                float swayY = Mathf.Cos(drunkennessTimeCounter) * Offset() * Mathf.Sin(drunkennessTimeCounter + 10) * drunkenness / 2;
+    //         if (UnityEngine.Random.Range(0f, 1f) < chanceToApplyEffect)
+    //         {
+    //             drunkennessTimeCounter += Time.fixedDeltaTime * drunkennessEffectFrequency;
+    //             float swayX = Mathf.Sin(drunkennessTimeCounter) * Offset() * Mathf.Sin(drunkennessTimeCounter + 10) * drunkenness / 2;
+    //             float swayY = Mathf.Cos(drunkennessTimeCounter) * Offset() * Mathf.Sin(drunkennessTimeCounter + 10) * drunkenness / 2;
 
-                moveDirection.x += swayX;
-                moveDirection.y += swayY;
-                moveDirection = moveDirection.normalized;
-            }
-        }
-        else
-        {
-            drunkennessTimeCounter = 0.0f;
-        }
-    }
+    //             moveDirection.x += swayX;
+    //             moveDirection.y += swayY;
+    //             moveDirection = moveDirection.normalized;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         drunkennessTimeCounter = 0.0f;
+    //     }
+    // }
 
-    int Offset()
+    // int Offset()
+    // {
+    //     if(timer >= 2f){
+    //         Debug.Log("chujchuj");
+    //         timer = 0f;
+    //         return offset*(-1);
+
+    //     }
+    //     return offset;
+    // }
+
+    void ApplyDrunkenEffect()
+{
+    float normalizedHead = (125.0f - head) / 100.0f;
+    float normalizedDrunkBeer = drunkBeer / 100.0f;
+
+    float drunkenness = normalizedDrunkBeer * normalizedHead;
+
+    if (moveDirection.magnitude > 0)
     {
-        if(timer >= 2f){
-            Debug.Log("chujchuj");
-            timer = 0f;
-            return offset*(-1);
+        float chanceToApplyEffect = drunkenness;
+        Debug.Log(drunkenness);
+        Debug.Log(moveSpeed);
+        
+        
 
+        if (Time.time - lastSwayChangeTime >= swayChangeInterval)
+        {
+            float offset = Math.Abs(drunkenness/4 - moveSpeed/10);
+            lastSwayChangeTime = Time.time;
+            swayAmount = UnityEngine.Random.Range(- offset, offset);
+            targetSwayAmount = UnityEngine.Random.Range(- offset, offset);
         }
-        return offset;
+
+        swayAmount = Mathf.Lerp(swayAmount, targetSwayAmount, (Time.time - lastSwayChangeTime) / swayChangeInterval) + Mathf.Sin(swayAmount)/4;
+        
+        moveDirection.x += swayAmount;
+        moveDirection.y += swayAmount;
+
+        moveDirection = moveDirection.normalized;
+
     }
+    else
+    {
+        drunkennessTimeCounter = 0.0f;
+    }
+}
 
     void Move()
     {
