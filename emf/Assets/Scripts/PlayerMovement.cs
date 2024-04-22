@@ -166,37 +166,37 @@ public class PlayerMovement : MonoBehaviour
     // }
 
     void ApplyDrunkenEffect()
-{
-    float normalizedHead = (100.0f - head) / 100.0f;
-    float normalizedDrunkBeer = drunkBeer / 100.0f;
-
-    float drunkenness = normalizedDrunkBeer * normalizedHead;
-
-    if (moveDirection.magnitude > 0)
-    {        
-
-        if (Time.time - lastSwayChangeTime >= swayChangeInterval)
-        {
-            float offset = drunkenness / (4 + currMoveSpeed / 5);
-            Debug.Log(offset);
-
-            lastSwayChangeTime = Time.time;
-            swayAmount = UnityEngine.Random.Range(- offset, offset);
-            targetSwayAmount = UnityEngine.Random.Range(- offset, offset);
-        }
-
-        swayAmount = Mathf.Lerp(swayAmount, targetSwayAmount, (Time.time - lastSwayChangeTime) / swayChangeInterval) + Mathf.Sin(swayAmount)/4;
-        moveDirection.x += swayAmount;
-        moveDirection.y += swayAmount;
-
-        moveDirection = moveDirection.normalized;
-
-    }
-    else
     {
-        drunkennessTimeCounter = 0.0f;
+        float normalizedHead = (100.0f - head) / 100.0f;
+        float normalizedDrunkBeer = drunkBeer / 100.0f;
+    
+        float drunkenness = normalizedDrunkBeer * normalizedHead;
+    
+        if (moveDirection.magnitude > 0)
+        {        
+    
+            if (Time.time - lastSwayChangeTime >= swayChangeInterval)
+            {
+                float offset = drunkenness / (4 + currMoveSpeed / 5);
+                Debug.Log(offset);
+    
+                lastSwayChangeTime = Time.time;
+                swayAmount = UnityEngine.Random.Range(- offset, offset);
+                targetSwayAmount = UnityEngine.Random.Range(- offset, offset);
+            }
+    
+            swayAmount = Mathf.Lerp(swayAmount, targetSwayAmount, (Time.time - lastSwayChangeTime) / swayChangeInterval) + Mathf.Sin(swayAmount)/4;
+            moveDirection.x += swayAmount;
+            moveDirection.y += swayAmount;
+    
+            moveDirection = moveDirection.normalized;
+    
+        }
+        else
+        {
+            drunkennessTimeCounter = 0.0f;
+        }
     }
-}
 
     void Move()
     {
