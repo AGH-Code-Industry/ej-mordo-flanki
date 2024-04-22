@@ -46,6 +46,9 @@ public class PlayerMovement : MonoBehaviour
     private float timer = 0f;
     private int offset = 10;
 
+    [SerializeField]
+    public GameObject graphics;
+
     private void Awake()
     {
         GameManagerSC = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -69,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
             isPlayer2 = true;
             BeerManagerSC = GameObject.Find("BeerManager2").GetComponent<BeerManager>();
             BeerManagerSC.beerSpeed += drinkSpeed;
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            graphics.GetComponent<SpriteRenderer>().flipX = true;
         }
 
         targetCan = GameObject.Find("TargetCan");
@@ -165,7 +168,24 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         rb.velocity = new Vector2(moveDirection.x * currMoveSpeed, moveDirection.y * currMoveSpeed);
+    
+        if (moveDirection != Vector2.zero && canMove)
+        {
+            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+            Quaternion targetRotation;
+
+            if (isPlayer2)
+            {
+                targetRotation = Quaternion.Euler(0, 0, angle - 180);
+            }
+            else
+            {
+                targetRotation = Quaternion.Euler(0, 0, angle);
+            }
+            graphics.transform.rotation = Quaternion.Lerp(graphics.transform.rotation, targetRotation, Time.deltaTime * 10);
+        }
     }
+
 
     void Pickup()
     {

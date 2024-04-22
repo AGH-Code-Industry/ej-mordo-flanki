@@ -920,8 +920,7 @@ PrefabInstance:
       propertyPath: beerBar
       value: 
       objectReference: {fileID: 1132204568}
-    m_RemovedComponents:
-    - {fileID: 6121636091332977630, guid: b3d5d2432135244ea9c0a17a3f6ca06e, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

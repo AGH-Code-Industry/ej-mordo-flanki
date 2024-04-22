@@ -234,6 +234,7 @@ public class GameManager : MonoBehaviour
                     
                     currPlayer2SC.currMoveSpeed = 0;
                     charactersPlayer2[j].transform.position = currPlayer2SC.startPosition;
+                    currPlayer2SC.graphics.transform.rotation = Quaternion.Euler(0, 0, 0);
                     currPlayer2SC.canMove = false;
                     currPlayer2SC.rb.bodyType = RigidbodyType2D.Kinematic;
 
@@ -280,6 +281,7 @@ public class GameManager : MonoBehaviour
                     
                     currPlayer1SC.currMoveSpeed = 0;
                     charactersPlayer1[i].transform.position = currPlayer1SC.startPosition;
+                    currPlayer1SC.graphics.transform.rotation = Quaternion.Euler(0, 0, 0);
                     currPlayer1SC.canMove = false;
                     currPlayer1SC.rb.bodyType = RigidbodyType2D.Kinematic;
 
