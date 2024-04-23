@@ -10,6 +10,7 @@ TagManager:
   - TargetCanPlace
   - PlayerHome
   - SpeedBoost
+  - AccuracyBoost
   layers:
   - Default
   - TransparentFX
