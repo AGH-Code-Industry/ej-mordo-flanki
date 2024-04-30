@@ -421,7 +421,7 @@ public class GameManager : MonoBehaviour
                 if (movement != null)
                 {
                     Debug.Log("zwiekszam celność dla gracza 1, obecna celność: " + movement.accuracy);
-                    movement.accuracy  /= 2f;
+                    movement.accuracy  *= 2f;
                     Debug.Log("nowa celność: " + movement.accuracy);
                 }
             }
@@ -435,7 +435,7 @@ public class GameManager : MonoBehaviour
                 if (movement != null)
                 {   
                     Debug.Log("zwiekszam celność dla gracza 2, obecna celność: " + movement.accuracy);
-                    movement.accuracy /= 2f;
+                    movement.accuracy *= 2f;
                     Debug.Log("nowa celność: " + movement.accuracy);
                 }
             }
@@ -464,7 +464,7 @@ public class GameManager : MonoBehaviour
                 if (movement != null)
                 {
                     Debug.Log("cofam boost dla gracza 1");
-                    movement.accuracy  *= 2f;
+                    movement.accuracy  /= 2f;
                 }
             }
         }
@@ -476,7 +476,7 @@ public class GameManager : MonoBehaviour
                 if (movement != null)
                 {
                     Debug.Log("cofam boost dla gracza 2");
-                    movement.accuracy *= 2f;
+                    movement.accuracy /= 2f;
                 }
             }
             

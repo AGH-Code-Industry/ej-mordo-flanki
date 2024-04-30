@@ -231,11 +231,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b950676148e214cebbb0733262068ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 16
-  throwForce: 40
-  drinkSpeed: 0.12
-  accuracy: 60
-  head: 50
+  moveSpeed: 30
+  throwForce: 30
+  drinkSpeed: 30
+  accuracy: 30
+  head: 30
 --- !u!1001 &731798921394984611
 PrefabInstance:
   m_ObjectHideFlags: 0
