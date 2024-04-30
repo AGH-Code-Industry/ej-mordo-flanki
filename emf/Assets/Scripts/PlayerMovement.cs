@@ -52,11 +52,11 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         GameManagerSC = GameObject.Find("GameManager").GetComponent<GameManager>();
-        drinkSpeed = CharacterStats.drinkSpeed;
+        drinkSpeed = CharacterStats.drinkSpeed / 600;
         ArrowController.throwForce = CharacterStats.throwForce;
-        moveSpeed = CharacterStats.moveSpeed;
+        moveSpeed = CharacterStats.moveSpeed / 4;
         accuracy = CharacterStats.accuracy;
-        ArrowController.rotationSpeed = CharacterStats.accuracy;
+        ArrowController.rotationSpeed = 120 - CharacterStats.accuracy;
         head = CharacterStats.head;
     }
 
