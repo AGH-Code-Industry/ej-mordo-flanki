@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private float drinkSpeed;
     private float throwForce;
     public float moveSpeed;
-    private float accuracy;
+    public float accuracy;
     private float head;
 
     public BeerManager BeerManagerSC;
@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         drinkSpeed = CharacterStats.drinkSpeed;
         ArrowController.throwForce = CharacterStats.throwForce;
         moveSpeed = CharacterStats.moveSpeed;
+        accuracy = CharacterStats.accuracy;
         ArrowController.rotationSpeed = CharacterStats.accuracy;
         head = CharacterStats.head;
     }

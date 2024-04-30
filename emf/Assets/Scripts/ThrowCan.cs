@@ -40,5 +40,10 @@ public class ThrowCan : MonoBehaviour
         {
             GameManager.applySpeedBoost();
         }
+
+        if (col.CompareTag("AccuracyBoost"))
+        {
+            GameManager.applyAccuracyBoost();
+        }
     }
 }

@@ -34,12 +34,24 @@ public class GameManager : MonoBehaviour
     private BeerManager BeerManager2SC;
 
     private bool player1IsThrowing = false;
-    private float speedBoostDuration = 40f;
-    private float boostProbability = 0.001f;
-    private bool boostSpawned = false;
+    
+    
     private float boostSpawnedDuration = 10f;
+    
+    // speed boost
+    private float speedBoostDuration = 40f;
+    private float speedBoostProbability = 0.001f;
+    private bool speedBoostSpawned = false;
     [SerializeField] private GameObject speedBoost;
     public GameObject speedBoostInstance;
+    
+    // accuracy boost 
+    private float accuracyBoostDuration = 40f;
+    private float accuracyBoostProbability = 0.005f;
+    private bool accuracyBoostSpawned = false;
+    [SerializeField] private GameObject accuracyBoost;
+    public GameObject accuracyBoostInstance;
+    
     private Vector3 spawnFieldLeftBot = new Vector3(-4, -3, 0);
     private Vector3 spawnFieldRightTop = new Vector3(4, 3, 0);
 
@@ -133,16 +145,28 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("PlayerWonScene");
         }
 
-        if (UnityEngine.Random.value <= boostProbability && !boostSpawned)
+        if (UnityEngine.Random.value <= speedBoostProbability && !speedBoostSpawned)
         {
             float randomX = UnityEngine.Random.Range(spawnFieldLeftBot.x, spawnFieldRightTop.x);
             float randomY = UnityEngine.Random.Range(spawnFieldLeftBot.y, spawnFieldRightTop.y);
             float randomZ = 0;
             Vector3 randomPosition = new Vector3(randomX, randomY, randomZ);
             speedBoostInstance = Instantiate(speedBoost, randomPosition, Quaternion.identity);
-            boostSpawned = true;
+            speedBoostSpawned = true;
             Invoke("destroySpeedBoost", boostSpawnedDuration);
             
+        }
+
+        if (UnityEngine.Random.value <= accuracyBoostProbability && !accuracyBoostSpawned)
+        {
+            
+            float randomX = UnityEngine.Random.Range(spawnFieldLeftBot.x, spawnFieldRightTop.x);
+            float randomY = UnityEngine.Random.Range(spawnFieldLeftBot.y, spawnFieldRightTop.y);
+            float randomZ = 0;
+            Vector3 randomPosition = new Vector3(randomX, randomY, randomZ);
+            accuracyBoostInstance = Instantiate(accuracyBoost, randomPosition, Quaternion.identity);
+            accuracyBoostSpawned = true;
+            Invoke("destroyAccuracyBoost", boostSpawnedDuration );
         }
         
     }
@@ -309,7 +333,7 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
+    // SPEED BOOST
     public void applySpeedBoost()
     {
         destroySpeedBoost();
@@ -320,6 +344,7 @@ public class GameManager : MonoBehaviour
                 PlayerMovement movement = charactersPlayer1[i].GetComponent<PlayerMovement>();
                 if (movement != null)
                 {
+                    
                     movement.moveSpeed *= 1.5f;
                 }
             }
@@ -332,6 +357,7 @@ public class GameManager : MonoBehaviour
                 PlayerMovement movement = charactersPlayer2[i].GetComponent<PlayerMovement>();
                 if (movement != null)
                 {
+                    
                     movement.moveSpeed *= 1.5f;
                 }
             }
@@ -360,6 +386,7 @@ public class GameManager : MonoBehaviour
                 PlayerMovement movement = charactersPlayer2[i].GetComponent<PlayerMovement>();
                 if (movement != null)
                 {
+                    
                     movement.moveSpeed /= 1.5f;
                 }
             }
@@ -377,8 +404,89 @@ public class GameManager : MonoBehaviour
 
     private void destroySpeedBoost()
     {
-        boostSpawned = false;
+        speedBoostSpawned = false;
         Destroy(speedBoostInstance);
+    }
+    
+    
+    // ACCURACY BOOST 
+    public void applyAccuracyBoost()
+    {
+        destroyAccuracyBoost();
+        if (player1IsThrowing)
+        {
+            for (int i = 0; i < charactersPlayer1.Length; i++)
+            {
+                PlayerMovement movement = charactersPlayer1[i].GetComponent<PlayerMovement>();
+                if (movement != null)
+                {
+                    Debug.Log("zwiekszam celność dla gracza 1, obecna celność: " + movement.accuracy);
+                    movement.accuracy  /= 2f;
+                    Debug.Log("nowa celność: " + movement.accuracy);
+                }
+            }
+            Invoke("deactivateAccuracyBoostForPlayer1", accuracyBoostDuration);
+        }
+        else
+        {
+            for (int i = 0; i < charactersPlayer2.Length; i++)
+            {
+                PlayerMovement movement = charactersPlayer2[i].GetComponent<PlayerMovement>();
+                if (movement != null)
+                {   
+                    Debug.Log("zwiekszam celność dla gracza 2, obecna celność: " + movement.accuracy);
+                    movement.accuracy /= 2f;
+                    Debug.Log("nowa celność: " + movement.accuracy);
+                }
+            }
+            Invoke("deactivateAccuracyBoostForPlayer2", accuracyBoostDuration);
+        }
+
+    }
+
+    private void deactivateAccuracyBoostForPlayer1()
+    {
+        deactiveAccuracyBoost(true);
+    }
+
+    private void deactivateAccuracyBoostForPlayer2()
+    {
+        deactiveAccuracyBoost(false);
+    }
+
+    private void deactiveAccuracyBoost(bool forPlayer1)
+    {
+        if (forPlayer1)
+        {
+            for (int i = 0; i < charactersPlayer1.Length; i++)
+            {
+                PlayerMovement movement = charactersPlayer1[i].GetComponent<PlayerMovement>();
+                if (movement != null)
+                {
+                    Debug.Log("cofam boost dla gracza 1");
+                    movement.accuracy  *= 2f;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < charactersPlayer2.Length; i++)
+            {
+                PlayerMovement movement = charactersPlayer2[i].GetComponent<PlayerMovement>();
+                if (movement != null)
+                {
+                    Debug.Log("cofam boost dla gracza 2");
+                    movement.accuracy *= 2f;
+                }
+            }
+            
+        }
+    }
+
+    private void destroyAccuracyBoost()
+    {
+        accuracyBoostSpawned = false;
+        Destroy(accuracyBoostInstance);
     }
 
 }

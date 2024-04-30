@@ -1030,6 +1030,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 834679081}
     - target: {fileID: 3388118861022524407, guid: 9a21d0e15389848538b5ddc7a520253e, type: 3}
+      propertyPath: accuracyBoost
+      value: 
+      objectReference: {fileID: 2634046154330140154, guid: 6ad1d69b133e84c489f8cd27b7e1f13a, type: 3}
+    - target: {fileID: 3388118861022524407, guid: 9a21d0e15389848538b5ddc7a520253e, type: 3}
+      propertyPath: speedBoostInstance
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3388118861022524407, guid: 9a21d0e15389848538b5ddc7a520253e, type: 3}
       propertyPath: characters.Array.size
       value: 8
       objectReference: {fileID: 0}
