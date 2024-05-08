@@ -147,11 +147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b950676148e214cebbb0733262068ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 75
-  throwForce: 40
-  drinkSpeed: 90
-  accuracy: 30
-  head: 70
+  moveSpeed: 65
+  throwForce: 80
+  drinkSpeed: 60
+  accuracy: 35
+  head: 60
 --- !u!1 &8669602253497155169
 GameObject:
   m_ObjectHideFlags: 0

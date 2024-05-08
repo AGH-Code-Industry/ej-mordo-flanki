@@ -148,10 +148,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 80
-  throwForce: 40
-  drinkSpeed: 50
-  accuracy: 40
-  head: 70
+  throwForce: 45
+  drinkSpeed: 60
+  accuracy: 30
+  head: 50
 --- !u!1 &7459513634600511416
 GameObject:
   m_ObjectHideFlags: 0

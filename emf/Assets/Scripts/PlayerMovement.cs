@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         GameManagerSC = GameObject.Find("GameManager").GetComponent<GameManager>();
         drinkSpeed = CharacterStats.drinkSpeed / 600;
         ArrowController.throwForce = CharacterStats.throwForce;
-        moveSpeed = CharacterStats.moveSpeed / 4;
+        moveSpeed = (float)(CharacterStats.moveSpeed / 3.5);
         accuracy = CharacterStats.accuracy;
         ArrowController.rotationSpeed = 120 - CharacterStats.accuracy;
         head = CharacterStats.head;
