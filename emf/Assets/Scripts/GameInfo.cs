@@ -5,7 +5,7 @@ public static class GameInfo
 {
     public static bool player1Won = false;
     public static bool player2Won = true;
-
+    public static bool msMap = false;
     private static string player1Nick = "Player1";
     private static string player2Nick = "Player2";
 

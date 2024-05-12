@@ -78,24 +78,44 @@ public class GameManager : MonoBehaviour
 
         int j = 0;
         float posY = -13f;
+        if (GameInfo.msMap)
+        {
+            posY = -14f;
+        }
         foreach (Transform child in Player1.transform)
         {
             charactersPlayer1[j] = child.gameObject;
             charactersPlayer1[j].transform.position = new Vector3(-23, posY, 0);
             j++;
-            posY += 9f;
-
+            if (GameInfo.msMap)
+            {
+                posY += 7.5f;
+            }
+            else
+            {
+                posY += 9f;
+            }
         }
 
         j = 0;
-        posY = -13f;
+        posY = -14f;
+        if (GameInfo.msMap)
+        {
+            posY = -15f;
+        }
         foreach (Transform child in Player2.transform)
         {
             charactersPlayer2[j] = child.gameObject;
             charactersPlayer2[j].transform.position = new Vector3(23, posY, 0);
             j++;
-            posY += 9f;
-
+            if (GameInfo.msMap)
+            {
+                posY += 7.5f;
+            }
+            else
+            {
+                posY += 9f;
+            }
         }
 
         TargetCanSC = GameObject.Find("TargetCan").GetComponent<TargetCan>();
