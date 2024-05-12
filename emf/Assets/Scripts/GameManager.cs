@@ -98,10 +98,10 @@ public class GameManager : MonoBehaviour
         }
 
         j = 0;
-        posY = -14f;
+        posY = -13f;
         if (GameInfo.msMap)
         {
-            posY = -15f;
+            posY = -14f;
         }
         foreach (Transform child in Player2.transform)
         {
