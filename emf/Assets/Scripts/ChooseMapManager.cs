@@ -16,6 +16,7 @@ public class ChooseMapManager : MonoBehaviour
 
     public void chooseMS()
     {
+        GameInfo.msMap = true;
         GameInfo.map = msMap;
         SceneManager.LoadScene("SelectionScene");
     }
