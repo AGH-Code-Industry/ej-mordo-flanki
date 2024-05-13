@@ -261,5 +261,15 @@ public class PlayerMovement : MonoBehaviour
             GameManagerSC.stopTimer = true;
             PlayerHome.SetActive(false);
         }
+        else if (col.CompareTag("SpeedBoost"))
+        {
+            GameManagerSC.applySpeedBoost();
+        }
+
+        else if (col.CompareTag("AccuracyBoost"))
+        {
+            GameManagerSC.applyAccuracyBoost();
+        }
+        
     }
 }

@@ -40,14 +40,14 @@ public class GameManager : MonoBehaviour
     
     // speed boost
     private float speedBoostDuration = 40f;
-    private float speedBoostProbability = 0.001f;
+    private float speedBoostProbability = 0.1f;
     private bool speedBoostSpawned = false;
     [SerializeField] private GameObject speedBoost;
     public GameObject speedBoostInstance;
     
     // accuracy boost 
     private float accuracyBoostDuration = 40f;
-    private float accuracyBoostProbability = 0.005f;
+    private float accuracyBoostProbability = 0.1f;
     private bool accuracyBoostSpawned = false;
     [SerializeField] private GameObject accuracyBoost;
     public GameObject accuracyBoostInstance;
@@ -167,28 +167,67 @@ public class GameManager : MonoBehaviour
 
         if (UnityEngine.Random.value <= speedBoostProbability && !speedBoostSpawned)
         {
-            float randomX = UnityEngine.Random.Range(spawnFieldLeftBot.x, spawnFieldRightTop.x);
-            float randomY = UnityEngine.Random.Range(spawnFieldLeftBot.y, spawnFieldRightTop.y);
-            float randomZ = 0;
-            Vector3 randomPosition = new Vector3(randomX, randomY, randomZ);
-            speedBoostInstance = Instantiate(speedBoost, randomPosition, Quaternion.identity);
+            Vector3 position;
+            int maxAttempts = 100;
+            int attempts = 0;
+            while (true)
+            {
+                Debug.Log("chujszybki");
+                position = new Vector3(UnityEngine.Random.Range(-32f, 32f), UnityEngine.Random.Range(-17f, 17f), 0);
+
+                // Sprawdzenie czy pozycja nie jest w środku planszy
+                if (position.x > -8 && position.x < 8 && position.y > -6 && position.y < 6)
+                    continue;
+
+                // Sprawdzenie czy pozycja nie koliduje z innymi obiektami
+                if (!Physics.CheckSphere(position, 1f))
+                {
+                    break;
+                }
+                
+                if (attempts++ > maxAttempts) {
+                    Debug.Log("Failed to find a suitable position");
+                    break;
+                }
+            }
+
+            speedBoostInstance = Instantiate(speedBoost, position, Quaternion.identity);
             speedBoostSpawned = true;
             Invoke("destroySpeedBoost", boostSpawnedDuration);
-            
+
         }
 
         if (UnityEngine.Random.value <= accuracyBoostProbability && !accuracyBoostSpawned)
         {
             
-            float randomX = UnityEngine.Random.Range(spawnFieldLeftBot.x, spawnFieldRightTop.x);
-            float randomY = UnityEngine.Random.Range(spawnFieldLeftBot.y, spawnFieldRightTop.y);
-            float randomZ = 0;
-            Vector3 randomPosition = new Vector3(randomX, randomY, randomZ);
-            accuracyBoostInstance = Instantiate(accuracyBoost, randomPosition, Quaternion.identity);
+            Vector3 position;
+            int maxAttempts = 100;
+            int attempts = 0;
+            while (true)
+            {
+                Debug.Log("chujcelny");
+                position = new Vector3(UnityEngine.Random.Range(-32f, 32f), UnityEngine.Random.Range(-17f, 17f), 0);
+
+                // Sprawdzenie czy pozycja nie jest w środku planszy
+                if (position.x > -8 && position.x < 8 && position.y > -6 && position.y < 6)
+                    continue;
+
+                // Sprawdzenie czy pozycja nie koliduje z innymi obiektami
+                if (!Physics.CheckSphere(position, 1f))
+                {
+                    break;
+                }
+                
+                if (attempts++ > maxAttempts) {
+                    Debug.Log("Failed to find a suitable position");
+                    break;
+                }
+            }
+            
+            accuracyBoostInstance = Instantiate(accuracyBoost, position, Quaternion.identity);
             accuracyBoostSpawned = true;
-            Invoke("destroyAccuracyBoost", boostSpawnedDuration );
+            Invoke("destroyAccuracyBoost", boostSpawnedDuration);
         }
-        
     }
 
     
@@ -357,7 +396,21 @@ public class GameManager : MonoBehaviour
     public void applySpeedBoost()
     {
         destroySpeedBoost();
-        if (player1IsThrowing)
+        if (!player1IsThrowing)
+        {
+            for(int i = 0; i < charactersPlayer2.Length; i++)
+            {
+                PlayerMovement movement = charactersPlayer2[i].GetComponent<PlayerMovement>();
+                if (movement != null)
+                {
+                    
+                    movement.moveSpeed *= 1.5f;
+                    Debug.Log("move speed:" + movement.moveSpeed);
+                }
+            }
+            Invoke("deactivateSpeedBoostForPlayer2", speedBoostDuration);
+        }
+        else
         {
             for(int i = 0; i < charactersPlayer1.Length; i++)
             {
@@ -369,19 +422,7 @@ public class GameManager : MonoBehaviour
                 }
             }
             Invoke("deactivateSpeedBoostForPlayer1", speedBoostDuration);
-        }
-        else
-        {
-            for(int i = 0; i < charactersPlayer2.Length; i++)
-            {
-                PlayerMovement movement = charactersPlayer2[i].GetComponent<PlayerMovement>();
-                if (movement != null)
-                {
-                    
-                    movement.moveSpeed *= 1.5f;
-                }
-            }
-            Invoke("deactivateSpeedBoostForPlayer2", speedBoostDuration);
+            
         }
     }
 
@@ -433,21 +474,7 @@ public class GameManager : MonoBehaviour
     public void applyAccuracyBoost()
     {
         destroyAccuracyBoost();
-        if (player1IsThrowing)
-        {
-            for (int i = 0; i < charactersPlayer1.Length; i++)
-            {
-                PlayerMovement movement = charactersPlayer1[i].GetComponent<PlayerMovement>();
-                if (movement != null)
-                {
-                    Debug.Log("zwiekszam celność dla gracza 1, obecna celność: " + movement.accuracy);
-                    movement.accuracy  *= 2f;
-                    Debug.Log("nowa celność: " + movement.accuracy);
-                }
-            }
-            Invoke("deactivateAccuracyBoostForPlayer1", accuracyBoostDuration);
-        }
-        else
+        if (!player1IsThrowing)
         {
             for (int i = 0; i < charactersPlayer2.Length; i++)
             {
@@ -460,6 +487,20 @@ public class GameManager : MonoBehaviour
                 }
             }
             Invoke("deactivateAccuracyBoostForPlayer2", accuracyBoostDuration);
+        }
+        else
+        {
+            for (int i = 0; i < charactersPlayer1.Length; i++)
+            {
+                PlayerMovement movement = charactersPlayer1[i].GetComponent<PlayerMovement>();
+                if (movement != null)
+                {
+                    Debug.Log("zwiekszam celność dla gracza 1, obecna celność: " + movement.accuracy);
+                    movement.accuracy  *= 2f;
+                    Debug.Log("nowa celność: " + movement.accuracy);
+                }
+            }
+            Invoke("deactivateAccuracyBoostForPlayer1", accuracyBoostDuration);
         }
 
     }
