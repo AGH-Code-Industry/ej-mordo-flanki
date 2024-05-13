@@ -33,17 +33,5 @@ public class ThrowCan : MonoBehaviour
             
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.CompareTag("SpeedBoost"))
-        {
-            GameManager.applySpeedBoost();
-        }
-
-        if (col.CompareTag("AccuracyBoost"))
-        {
-            GameManager.applyAccuracyBoost();
-        }
-    }
+    
 }
